@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="UnitDefinition" load_steps=4 format=3 uid="uid://csvvbypj8njrm"]
 
 [ext_resource type="Resource" uid="uid://r8oh87vu3ff6" path="res://actions/action_move.tres" id="1_aw8g0"]
-[ext_resource type="Texture2D" uid="uid://di2gw8i01axfr" path="res://textures/gc.png" id="1_pmi1p"]
+[ext_resource type="SpriteFrames" uid="uid://br75bjvhng1dj" path="res://spriteframes/garbage_chan_animations.tres" id="2_cqydl"]
 [ext_resource type="Script" path="res://scripts/UnitDefinition.gd" id="2_s8gkt"]
 
 [resource]
 script = ExtResource("2_s8gkt")
 name = "Garbage-Chan"
-board_sprite = ExtResource("1_pmi1p")
+board_animations = ExtResource("2_cqydl")
 max_health = 5
 base_power = 2
 base_speed = 3

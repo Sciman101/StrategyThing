@@ -21,14 +21,6 @@ func _ready():
 		x += 1
 
 func _draw():
-	var rect = get_used_rect()
-#	for i in range(rect.size.x * rect.size.y):
-#		if astar.has_point(i):
-#			var pos = (astar.get_point_position(i) + Vector2(rect.position)) * 32 + Vector2(16,16)
-#			draw_circle(pos, 2, Color.RED)
-#			for conn in astar.get_point_connections(i):
-#				var pos2 = (astar.get_point_position(conn) + Vector2(rect.position)) * 32 + Vector2(16,16)
-#				draw_line(pos, pos2, Color.RED)
 	for cell in selection:
 		draw_circle(map_to_local(cell), 14, Color.AQUA)
 
@@ -37,14 +29,12 @@ func add_unit(pos : Vector2i, data : UnitDefinition, team : int = -1):
 		print('Attempting to spawn unit in occupied space! ', pos)
 		return null
 	var unit = UnitScene.instantiate()
-	# Populate unit fields
-	unit.unit_data = data
-	unit.team = team
-	unit.board = self
-	unit.position = map_to_local(pos)
-	unit.board_position = pos
-	units[pos] = unit
 	add_child(unit)
+	# Populate unit info
+	unit.board = self
+	unit.set_unit_data(data)
+	unit.team = team
+	move_unit(unit, pos)
 	return unit
 
 func get_unit(pos : Vector2i):
@@ -54,6 +44,7 @@ func move_unit(unit, new_pos : Vector2i):
 	units.erase(unit.board_position)
 	units[new_pos] = unit
 	unit.board_position = new_pos
+	unit.position = map_to_local(new_pos)
 
 func find_path(start : Vector2i, end : Vector2i, crunch:bool=false):
 	var rect = get_used_rect()
@@ -74,7 +65,6 @@ func crunch_path(board_path : Array):
 	
 	var idx = 1
 	while idx < board_path.size() - 1:
-		var prev = curr
 		curr = next
 		next = board_path[idx + 1]
 		var prev_dir = dir

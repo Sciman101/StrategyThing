@@ -20,4 +20,6 @@ func execute(game, board, unit, control_signal):
 				# Valid path
 				move_valid = true
 				board.move_unit(unit, target_pos)
+				unit.play(&'move')
 				await unit.follow_path(path)
+				unit.play(&'default')

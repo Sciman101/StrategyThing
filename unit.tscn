@@ -1,11 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://41a5tw6hdlt4"]
 
-[ext_resource type="Texture2D" uid="uid://di2gw8i01axfr" path="res://textures/gc.png" id="1_roc6l"]
+[ext_resource type="SpriteFrames" uid="uid://bt1q5jic0m48f" path="res://spriteframes/arrow_box_animations.tres" id="1_yvrg6"]
 [ext_resource type="Script" path="res://scripts/Unit.gd" id="2_sl1rc"]
-[ext_resource type="Resource" uid="uid://csvvbypj8njrm" path="res://UnitGC.tres" id="3_irxaq"]
+[ext_resource type="Resource" uid="uid://btkogb0xitmpo" path="res://UnitArrowBox.tres" id="3_rxmq4"]
 
-[node name="Unit" type="Sprite2D"]
-texture = ExtResource("1_roc6l")
+[node name="Unit" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_yvrg6")
+animation = &"move"
+autoplay = "default"
 offset = Vector2(0, -8)
 script = ExtResource("2_sl1rc")
-unit_data = ExtResource("3_irxaq")
+unit_data = ExtResource("3_rxmq4")

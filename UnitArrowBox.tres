@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/UnitDefinition.gd" id="1_qul8w"]
 [ext_resource type="Resource" uid="uid://r8oh87vu3ff6" path="res://actions/action_move.tres" id="1_seicp"]
-[ext_resource type="Texture2D" uid="uid://b8d0t6lfyqfap" path="res://textures/arrowbox.png" id="1_xghjl"]
+[ext_resource type="SpriteFrames" uid="uid://bt1q5jic0m48f" path="res://spriteframes/arrow_box_animations.tres" id="2_djwv0"]
 
 [resource]
 script = ExtResource("1_qul8w")
 name = "Arrow Box"
-board_sprite = ExtResource("1_xghjl")
+board_animations = ExtResource("2_djwv0")
 max_health = 4
 base_power = 1
 base_speed = 4

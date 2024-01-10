@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8d0t6lfyqfap"
-path="res://.godot/imported/arrowbox.png-c2d6b6e690c41631d5ccf5e0da26d800.ctex"
+uid="uid://bj5r3ld1822l8"
+path="res://.godot/imported/Garbage-Chan.png-710e1a5df9ff48ce6db3efe243b84aca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/arrowbox.png"
-dest_files=["res://.godot/imported/arrowbox.png-c2d6b6e690c41631d5ccf5e0da26d800.ctex"]
+source_file="res://textures/Garbage-Chan.png"
+dest_files=["res://.godot/imported/Garbage-Chan.png-710e1a5df9ff48ce6db3efe243b84aca.ctex"]
 
 [params]
 
