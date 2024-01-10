@@ -8,9 +8,13 @@ extends Node2D
 var cursor_pos : Vector2i
 
 var selected_unit = null
+var current_action = null
+
+signal process_action
 
 func _ready():
 	deselect_unit()
+	controls.action_selected.connect(_action_selected)
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -19,32 +23,31 @@ func _unhandled_input(event):
 		cursor.position = board.map_to_local(cursor_pos)
 	
 	elif event is InputEventMouseButton:
-		if Input.is_action_just_released("select"):
-			# Try and select a unit
-			var unit = board.get_unit(cursor_pos)
-			if unit:
-				deselect_unit()
-				select_unit(unit)
-				board.select_within_distance(unit.board_position, unit.speed)
-				board.select_remove_occupied_cells()
-			elif selected_unit:
-				# Move em
-				unit = selected_unit
-				deselect_unit()
-				var dist = board.manhatten_dist(unit.board_position, cursor_pos)
-				if dist <= unit.speed:
-					var path = board.find_path(unit.board_position, cursor_pos, true)
-					if path.size() > 0:
-						# Valid path
-						board.move_unit(unit, cursor_pos)
-						await unit.follow_path(path)
-					else:
-						print("Can't go there!")
+		if current_action == null:
+			# Unit selection
+			if Input.is_action_just_released("select"):
+				# Try and select a unit
+				var unit = board.get_unit(cursor_pos)
+				if unit:
+					deselect_unit()
+					select_unit(unit)
 				else:
-					print("Out of range!")
-		
-		elif Input.is_action_just_released("deselect"):
-			deselect_unit()
+					deselect_unit()
+			
+			elif Input.is_action_just_released("deselect"):
+				deselect_unit()
+		else:
+			if Input.is_action_just_released("select"):
+				# Send signal into the action
+				process_action.emit({selected_cell=cursor_pos})
+				
+			# Feed selection back into the current action
+			elif Input.is_action_just_released("deselect"):
+				# Stop it
+				process_action.emit({abort=true}) # Send a signal to abort the current action
+				current_action = null
+				controls.show()
+				select_unit(selected_unit)
 
 func select_unit(unit):
 	selected_unit = unit
@@ -57,3 +60,12 @@ func deselect_unit():
 	selected_unit = null
 	controls.show_unit_info(null)
 	board.select_clear()
+
+func _action_selected(action : UnitAction):
+	controls.hide()
+	current_action = action
+	# Begin action execution
+	await action.execute(self, board, selected_unit, process_action)
+	# Once the action is complete
+	current_action = null
+	controls.show()

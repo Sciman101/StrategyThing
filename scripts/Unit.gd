@@ -1,11 +1,16 @@
 extends Sprite2D
 
+const BASE_AP := 3
+
 @export var unit_data : UnitDefinition
 
+# Unit stats
 var health : int
 var power : int
 var speed : int
+var action_points : int
 
+# Board info
 var board
 var board_position : Vector2i
 
@@ -13,6 +18,7 @@ func _ready():
 	health = unit_data.max_health
 	power = unit_data.base_power
 	speed = unit_data.base_speed
+	action_points = BASE_AP
 	
 	texture = unit_data.board_sprite
 

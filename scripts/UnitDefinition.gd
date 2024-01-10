@@ -9,4 +9,4 @@ extends Resource
 @export_range(0,100) var base_power : int
 @export_range(0,100) var base_speed : int
 
-@export var actions : Array[String]
+@export var actions : Array[UnitAction]

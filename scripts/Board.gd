@@ -80,7 +80,6 @@ func crunch_path(board_path : Array):
 		
 		if dir != prev_dir:
 			new_path.append(curr)
-			print(new_path)
 		idx += 1
 	if new_path[-1] != board_path[-1]:
 		new_path.append(board_path[-1])
@@ -145,10 +144,6 @@ func _build_pathfinding_graph():
 			var tilemap_pos = pos + rect.position
 			if get_cell_source_id(0, tilemap_pos) != -1:
 				astar.add_point(idx, pos)
-				var label = Label.new()
-				label.text = str(idx)
-				add_child(label)
-				label.position = tilemap_pos * 32
 	for x in size.x:
 		for y in size.y:
 			var pos = Vector2i(x,y)

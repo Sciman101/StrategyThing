@@ -9,3 +9,8 @@ res://scripts/UnitControls.gd
 res://CameraController.gd
 res://UnitArrowBox.tres
 res://UnitGC.tres
+res://scripts/actions/action.gd
+res://scripts/actions/UnitAction.gd
+res://scripts/actions/MoveUnitAction.gd
+res://actions/action_move.tres
+res://game.tscn
