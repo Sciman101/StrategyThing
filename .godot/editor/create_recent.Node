@@ -1,9 +1,0 @@
-Label
-Button
-VBoxContainer
-HBoxContainer
-Control
-CanvasLayer
-Camera2D
-Sprite2D
-TileMap
