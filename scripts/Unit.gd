@@ -10,6 +10,8 @@ var power : int
 var speed : int
 var action_points : int
 
+var team : int = -1 # Unassigned by default
+
 # Board info
 var board
 var board_position : Vector2i
@@ -43,4 +45,4 @@ func follow_path(board_path : Array): # Path is expected in tilemap/board coordi
 		prev = point
 
 func get_info_string():
-	return unit_data.name + "\nHealth: " + str(health) + "/" + str(unit_data.max_health) + "\nPower: " + str(power) + "\nSpeed: " + str(speed)
+	return "%s\n%d AP\nHealth: %d/%d\nSpeed: %d\nPower: %d" % [unit_data.name, action_points, health, unit_data.max_health, speed, power]

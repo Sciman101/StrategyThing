@@ -32,17 +32,19 @@ func _draw():
 	for cell in selection:
 		draw_circle(map_to_local(cell), 14, Color.AQUA)
 
-func add_unit(pos : Vector2i, data : UnitDefinition):
+func add_unit(pos : Vector2i, data : UnitDefinition, team : int = -1):
 	if units.get(pos):
 		print('Attempting to spawn unit in occupied space! ', pos)
 		return null
 	var unit = UnitScene.instantiate()
+	# Populate unit fields
 	unit.unit_data = data
-	add_child(unit)
+	unit.team = team
 	unit.board = self
 	unit.position = map_to_local(pos)
 	unit.board_position = pos
 	units[pos] = unit
+	add_child(unit)
 	return unit
 
 func get_unit(pos : Vector2i):

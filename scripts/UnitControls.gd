@@ -28,6 +28,7 @@ func show_unit_info(unit):
 			else:
 				action_buttons[i].show()
 				action_buttons[i].text = unit_actions[i].name
+				action_buttons[i].disabled = unit.action_points < unit_actions[i].ap_cost
 	else:
 		infobox.text = "No unit selected"
 		actions.hide()
@@ -37,7 +38,8 @@ func show_unit_info(unit):
 func _action_button_hovered(index : int):
 	if last_unit:
 		actioninfobox.show()
-		actioninfobox.text = last_unit.unit_data.actions[index].description
+		var action = last_unit.unit_data.actions[index]
+		actioninfobox.text = action.description + "\nAP Cost: " + str(action.ap_cost)
 
 func _action_button_unhovered():
 	actioninfobox.hide()

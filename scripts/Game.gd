@@ -65,7 +65,10 @@ func _action_selected(action : UnitAction):
 	controls.hide()
 	current_action = action
 	# Begin action execution
-	await action.execute(self, board, selected_unit, process_action)
+	var unit = selected_unit
+	await action.execute(self, board, unit, process_action)
 	# Once the action is complete
+	# Take AP from unit
+	unit.action_points -= action.ap_cost
 	current_action = null
 	controls.show()
