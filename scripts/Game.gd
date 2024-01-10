@@ -47,6 +47,7 @@ func _unhandled_input(event):
 				process_action.emit({abort=true}) # Send a signal to abort the current action
 				current_action = null
 				controls.show()
+				board.clear_overlay()
 				select_unit(selected_unit)
 
 func select_unit(unit):
@@ -59,7 +60,7 @@ func deselect_unit():
 		selected_unit.deselect()
 	selected_unit = null
 	controls.show_unit_info(null)
-	board.select_clear()
+	board.clear_overlay()
 
 func _action_selected(action : UnitAction):
 	controls.hide()

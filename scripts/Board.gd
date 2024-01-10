@@ -1,6 +1,9 @@
 extends TileMap
 
 const ASTAR_NEIGHBORS = [Vector2i.UP,Vector2i.DOWN,Vector2i.LEFT,Vector2i.RIGHT]
+const BASE_LAYER := 0
+const OVERLAY_LAYER := 1
+const OVERLAY_TILE_INDEX := 1
 
 const UnitData = [preload("res://UnitArrowBox.tres"), preload("res://UnitGC.tres")]
 
@@ -9,20 +12,13 @@ const UnitScene = preload("res://unit.tscn")
 var units = {}
 var astar : AStar2D
 
-# List of selected cells
-var selection = []
-
-func _ready():
+func _ready():	
 	_build_pathfinding_graph()
 	
 	var x = 0
 	for unit in UnitData:
 		add_unit(Vector2i(5 + x,5), unit)
 		x += 1
-
-func _draw():
-	for cell in selection:
-		draw_circle(map_to_local(cell), 14, Color.AQUA)
 
 func add_unit(pos : Vector2i, data : UnitDefinition, team : int = -1):
 	if units.get(pos):
@@ -77,41 +73,21 @@ func crunch_path(board_path : Array):
 		new_path.append(board_path[-1])
 	return new_path
 
-#== Selection manipulation ==#
-func select_clear():
-	selection.clear()
-	queue_redraw()
+#== Overlay Layer ==#
+func clear_overlay():
+	clear_layer(OVERLAY_LAYER)
 
-func select_all():
-	select_clear()
-	var rect = get_used_rect()
-	for x in rect.size.x:
-		for y in rect.size.y:
-			var pos = Vector2i(x,y) + rect.position
-			if get_cell_source_id(0, pos) != -1:
-				selection.append(pos)
-	queue_redraw()
+func show_movement_range(unit):
+	for x in range(-unit.speed, unit.speed+1):
+		for y in range(-unit.speed, unit.speed+1):
+			var pos = unit.board_position + Vector2i(x,y)
+			if get_cell_source_id(BASE_LAYER, pos) != -1:
+				if manhatten_dist(pos, unit.board_position) <= unit.speed:
+					set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
 
-func select_within_distance(center: Vector2i, distance: int):
-	select_clear()
-	var rect = get_used_rect()
-	for x in rect.size.x:
-		for y in rect.size.y:
-			var pos = Vector2i(x,y) + rect.position
-			if get_cell_source_id(0, pos) != -1 and manhatten_dist(center, pos) <= distance:
-				selection.append(pos)
-	queue_redraw()
-
-func select_remove_occupied_cells():
-	for pos in units.keys():
-		select_remove_cell(pos)
-
-func select_remove_cell(pos:Vector2i):
-	selection.erase(pos)
-	queue_redraw()
-
-func pos_in_selection(pos:Vector2i):
-	return selection.has(pos)
+func unhighlight_occupied_cells():
+	for cell in units.keys():
+		set_cell(OVERLAY_LAYER, cell)
 
 #== ASTAR SETUP & UTILITIES ==#
 
@@ -134,7 +110,7 @@ func _build_pathfinding_graph():
 			var pos = Vector2i(x,y)
 			var idx = _astar_from_pos(pos)
 			var tilemap_pos = pos + rect.position
-			if get_cell_source_id(0, tilemap_pos) != -1:
+			if get_cell_source_id(BASE_LAYER, tilemap_pos) != -1:
 				astar.add_point(idx, pos)
 	for x in size.x:
 		for y in size.y:
