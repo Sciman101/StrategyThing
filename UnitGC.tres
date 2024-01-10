@@ -10,5 +10,5 @@ name = "Garbage-Chan"
 board_animations = ExtResource("2_cqydl")
 max_health = 5
 base_power = 2
-base_speed = 3
+base_speed = 100
 actions = Array[Resource("res://scripts/actions/UnitAction.gd")]([ExtResource("1_aw8g0")])

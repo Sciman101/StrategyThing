@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=4 format=3 uid="uid://btkogb0xitmpo"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3 uid="uid://btkogb0xitmpo"]
 
 [ext_resource type="Script" path="res://scripts/UnitDefinition.gd" id="1_qul8w"]
 [ext_resource type="Resource" uid="uid://r8oh87vu3ff6" path="res://actions/action_move.tres" id="1_seicp"]
+[ext_resource type="Resource" uid="uid://b08b3ao85sn7q" path="res://actions/action_teleport.tres" id="2_6tf6s"]
 [ext_resource type="SpriteFrames" uid="uid://bt1q5jic0m48f" path="res://spriteframes/arrow_box_animations.tres" id="2_djwv0"]
 
 [resource]
@@ -11,4 +12,4 @@ board_animations = ExtResource("2_djwv0")
 max_health = 4
 base_power = 1
 base_speed = 4
-actions = Array[Resource("res://scripts/actions/UnitAction.gd")]([ExtResource("1_seicp")])
+actions = Array[Resource("res://scripts/actions/UnitAction.gd")]([ExtResource("1_seicp"), ExtResource("2_6tf6s")])

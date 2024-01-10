@@ -74,16 +74,24 @@ func crunch_path(board_path : Array):
 	return new_path
 
 #== Overlay Layer ==#
-func clear_overlay():
+func highlight_clear():
 	clear_layer(OVERLAY_LAYER)
 
-func show_movement_range(unit):
+func highlight_movement_range(unit):
 	for x in range(-unit.speed, unit.speed+1):
 		for y in range(-unit.speed, unit.speed+1):
 			var pos = unit.board_position + Vector2i(x,y)
 			if get_cell_source_id(BASE_LAYER, pos) != -1:
 				if manhatten_dist(pos, unit.board_position) <= unit.speed:
 					set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
+
+func highlight_all_spaces():
+	var rect = get_used_rect()
+	for x in range(rect.position.x, rect.position.x + rect.size.x):
+		for y in range(rect.position.y, rect.position.y + rect.size.y):
+			var pos = Vector2i(x,y)
+			if get_cell_source_id(BASE_LAYER, pos) != -1:
+				set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
 
 func unhighlight_occupied_cells():
 	for cell in units.keys():

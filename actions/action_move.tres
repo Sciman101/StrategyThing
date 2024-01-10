@@ -6,4 +6,4 @@
 script = ExtResource("1_o7m2h")
 name = "Move"
 description = "Move this unit as many tiles as your current speed"
-ap_cost = 2
+ap_cost = 0

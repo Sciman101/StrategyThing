@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b08b3ao85sn7q"]
+
+[ext_resource type="Script" path="res://scripts/actions/TeleportUnitAction.gd" id="1_6v812"]
+
+[resource]
+script = ExtResource("1_6v812")
+name = "Teleport"
+description = "Teleport to any open space on the board"
+ap_cost = 3
