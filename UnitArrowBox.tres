@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=3 format=3 uid="uid://btkogb0xitmpo"]
+
+[ext_resource type="Script" path="res://scripts/UnitDefinition.gd" id="1_qul8w"]
+[ext_resource type="Texture2D" uid="uid://b8d0t6lfyqfap" path="res://textures/arrowbox.png" id="1_xghjl"]
+
+[resource]
+script = ExtResource("1_qul8w")
+name = "Arrow Box"
+board_sprite = ExtResource("1_xghjl")
+max_health = 4
+base_power = 1
+base_speed = 4
+actions = Array[String](["Move", "Gift"])

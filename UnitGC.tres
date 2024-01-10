@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=3 format=3 uid="uid://csvvbypj8njrm"]
+
+[ext_resource type="Texture2D" uid="uid://di2gw8i01axfr" path="res://textures/gc.png" id="1_pmi1p"]
+[ext_resource type="Script" path="res://scripts/UnitDefinition.gd" id="2_s8gkt"]
+
+[resource]
+script = ExtResource("2_s8gkt")
+name = "Garbage-Chan"
+board_sprite = ExtResource("1_pmi1p")
+max_health = 5
+base_power = 2
+base_speed = 3
+actions = Array[String](["Move", "Attack", "Explode"])

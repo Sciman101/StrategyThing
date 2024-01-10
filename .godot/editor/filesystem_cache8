@@ -1,0 +1,17 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1704854712
+UnitArrowBox.tres::Resource/UnitDefinition::3741513335218401140::1704854721::0::1::::<><>::res://scripts/UnitDefinition.gd
+test.tscn::PackedScene::7989593366619941306::1704854576::0::1::::<><>::res://scripts/Game.gd<>uid://ue8pl6iaq8m5::::res://textures/icon.svg<>res://scripts/Board.gd<>uid://c2t1is4xs3k0::::res://textures/cursor.png<>res://scripts/UnitControls.gd
+unit.tscn::PackedScene::2089204894272973879::1704854712::0::1::::<><>::uid://di2gw8i01axfr::::res://textures/gc.png<>res://scripts/Unit.gd<>uid://csvvbypj8njrm::::res://UnitGC.tres
+UnitGC.tres::Resource/UnitDefinition::6080870612534050506::1704854131::0::1::::<><>::res://scripts/UnitDefinition.gd
+::res://scripts/::1704854501
+Board.gd::GDScript::-1::1704853867::0::1::::<>TileMap<>::
+Game.gd::GDScript::-1::1704854501::0::1::::<>Node2D<>::
+Unit.gd::GDScript::-1::1704852498::0::1::::<>Sprite2D<>::
+UnitControls.gd::GDScript::-1::1704854111::0::1::::<>Control<>::
+UnitDefinition.gd::GDScript::-1::1704854121::0::1::::UnitDefinition<>Resource<>::
+::res://textures/::1704854706
+arrowbox.png::CompressedTexture2D::4710399157390290563::1704854706::1704854706::1::::<><>::
+cursor.png::CompressedTexture2D::197316389482152701::1704840846::1704841232::1::::<><>::
+gc.png::CompressedTexture2D::7776916335765329879::1704840695::1704854697::1::::<><>::
+icon.svg::CompressedTexture2D::1414065457456692858::1704840322::1704841232::1::::<><>::
