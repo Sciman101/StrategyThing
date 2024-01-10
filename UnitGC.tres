@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=4 format=3 uid="uid://csvvbypj8njrm"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=5 format=3 uid="uid://csvvbypj8njrm"]
 
 [ext_resource type="Resource" uid="uid://r8oh87vu3ff6" path="res://actions/action_move.tres" id="1_aw8g0"]
 [ext_resource type="SpriteFrames" uid="uid://br75bjvhng1dj" path="res://spriteframes/garbage_chan_animations.tres" id="2_cqydl"]
+[ext_resource type="Resource" uid="uid://bp8iptd820n3j" path="res://actions/action_clone.tres" id="2_dvdpr"]
 [ext_resource type="Script" path="res://scripts/UnitDefinition.gd" id="2_s8gkt"]
 
 [resource]
@@ -11,4 +12,4 @@ board_animations = ExtResource("2_cqydl")
 max_health = 5
 base_power = 2
 base_speed = 100
-actions = Array[Resource("res://scripts/actions/UnitAction.gd")]([ExtResource("1_aw8g0")])
+actions = Array[Resource("res://scripts/actions/UnitAction.gd")]([ExtResource("1_aw8g0"), ExtResource("2_dvdpr")])

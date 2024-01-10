@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bp8iptd820n3j"]
+
+[ext_resource type="Script" path="res://scripts/actions/CloneUnitAction.gd" id="1_pa05r"]
+
+[resource]
+script = ExtResource("1_pa05r")
+name = "Clone"
+description = "Create a copy of yourself on any adjacent tile"
+ap_cost = 3

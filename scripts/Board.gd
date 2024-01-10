@@ -42,6 +42,9 @@ func move_unit(unit, new_pos : Vector2i):
 	unit.board_position = new_pos
 	unit.position = map_to_local(new_pos)
 
+func space_exists(pos : Vector2i):
+	return get_cell_source_id(BASE_LAYER, pos) != -1
+
 func find_path(start : Vector2i, end : Vector2i, crunch:bool=false):
 	var rect = get_used_rect()
 	var a = _astar_from_pos(start - rect.position)
@@ -77,11 +80,15 @@ func crunch_path(board_path : Array):
 func highlight_clear():
 	clear_layer(OVERLAY_LAYER)
 
+func highlight_cell(pos : Vector2i, allow_empty : bool = false):
+	if allow_empty or space_exists(pos):
+		set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
+
 func highlight_movement_range(unit):
 	for x in range(-unit.speed, unit.speed+1):
 		for y in range(-unit.speed, unit.speed+1):
 			var pos = unit.board_position + Vector2i(x,y)
-			if get_cell_source_id(BASE_LAYER, pos) != -1:
+			if space_exists(pos):
 				if manhatten_dist(pos, unit.board_position) <= unit.speed:
 					set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
 
@@ -90,7 +97,7 @@ func highlight_all_spaces():
 	for x in range(rect.position.x, rect.position.x + rect.size.x):
 		for y in range(rect.position.y, rect.position.y + rect.size.y):
 			var pos = Vector2i(x,y)
-			if get_cell_source_id(BASE_LAYER, pos) != -1:
+			if space_exists(pos):
 				set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
 
 func unhighlight_occupied_cells():
@@ -118,7 +125,7 @@ func _build_pathfinding_graph():
 			var pos = Vector2i(x,y)
 			var idx = _astar_from_pos(pos)
 			var tilemap_pos = pos + rect.position
-			if get_cell_source_id(BASE_LAYER, tilemap_pos) != -1:
+			if space_exists(tilemap_pos):
 				astar.add_point(idx, pos)
 	for x in size.x:
 		for y in size.y:
