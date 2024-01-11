@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl3ho2nc5r4oc"]
+[gd_scene load_steps=7 format=3 uid="uid://dl3ho2nc5r4oc"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_npc24"]
 [ext_resource type="TileSet" uid="uid://t8uktdrwmjx5" path="res://board_tiles.tres" id="2_emj0f"]
+[ext_resource type="Script" path="res://scripts/CameraControl.gd" id="2_wt67t"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="3_igans"]
 [ext_resource type="Texture2D" uid="uid://c2t1is4xs3k0" path="res://textures/cursor.png" id="4_15725"]
 [ext_resource type="Script" path="res://scripts/UnitControls.gd" id="5_j524e"]
@@ -11,6 +12,7 @@ script = ExtResource("1_npc24")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
+script = ExtResource("2_wt67t")
 
 [node name="Board" type="TileMap" parent="."]
 y_sort_enabled = true

@@ -49,6 +49,9 @@ func find_path(start : Vector2i, end : Vector2i, crunch:bool=false):
 	var rect = get_used_rect()
 	var a = _astar_from_pos(start - rect.position)
 	var b = _astar_from_pos(end - rect.position)
+	# Abort if cells don't exist
+	if not astar.has_point(a) or not astar.has_point(b):
+		return []
 	var path = Array(astar.get_id_path(a, b)).map(func(id): return _pos_from_astar(id) + rect.position)
 	if crunch: path = crunch_path(path)
 	return path
@@ -100,9 +103,34 @@ func highlight_all_spaces():
 			if space_exists(pos):
 				set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
 
+func highlight_path(path : Array):
+	if path.size() == 0: return
+	if path.size() == 1:
+		highlight_cell(path[0])
+		return
+	var curr = path[0]
+	var next = path[1]
+	var end = path[-1]
+	var dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
+	var idx = 0
+	while curr != end:
+		highlight_cell(curr, true)
+		curr += dir
+		if curr == next:
+			idx += 1
+			curr = next
+			if idx < path.size() - 1:
+				next = path[idx + 1]
+			dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
+	highlight_cell(path[-1])
+
 func unhighlight_occupied_cells():
 	for cell in units.keys():
 		set_cell(OVERLAY_LAYER, cell)
+
+func space_is_highlighted(space : Vector2i) -> bool:
+	if not space: return false
+	return get_cell_source_id(OVERLAY_LAYER, space) != -1
 
 #== ASTAR SETUP & UTILITIES ==#
 
