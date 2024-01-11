@@ -4,6 +4,7 @@ const BASE_AP := 3
 const PULSE_DURATION := 0.4
 
 @onready var highlight = $Highlight
+@onready var callbacks = $Callbacks
 
 @export var unit_data : UnitDefinition
 
@@ -16,13 +17,16 @@ var action_points : int
 var team : int = -1 # Unassigned by default
 
 # Board info
-var board
+var board : TileMap
 var board_position : Vector2i
 
 func _ready():
 	highlight.position = offset
 	highlight.modulate = Color.TRANSPARENT
 	animation_finished.connect(_animation_finished)
+	
+	if unit_data.callbacks:
+		callbacks.set_script(unit_data.callbacks)
 
 func select():
 	modulate = Color.GREEN
@@ -37,15 +41,24 @@ func pulse_highlight():
 	tween.tween_property(highlight, 'scale', Vector2.ONE, PULSE_DURATION).set_ease(Tween.EASE_OUT)
 	tween.tween_property(highlight, 'modulate', Color.TRANSPARENT, PULSE_DURATION).set_ease(Tween.EASE_OUT)
 
+func can_be_moved_into(): # Can another unit move into our space?
+	return callbacks.has_method('on_overlap')
+
 func replenish_ap():
 	action_points = BASE_AP
 
-func hurt(damage : int, pushback : Vector2i):
+func hurt(damage : int, pushback : Vector2i, source):
 	health -= damage
 	play(&'hurt')
 	
+	if callbacks.has_method('on_hurt'):
+		callbacks.on_hurt(board, self, damage, pushback, source)
+	
 	if health <= 0:
 		# Ganon voice: DIE!!!
+		if callbacks.has_method('on_defeat'):
+			callbacks.on_defeat(board, self, source)
+		
 		board.remove_unit(self)
 		visible = false
 		return

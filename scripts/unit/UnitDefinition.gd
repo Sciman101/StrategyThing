@@ -10,3 +10,5 @@ extends Resource
 @export_range(0,100) var base_speed : int
 
 @export var actions : Array[UnitAction]
+
+@export var callbacks : Script

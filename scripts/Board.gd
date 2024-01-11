@@ -33,11 +33,21 @@ func get_team_units(team : int):
 	return units.values().filter(func(unit): return unit.team == team)
 
 func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
+	
+	# Does something already exist there?
+	var old_unit = units.get(new_pos)
+	
+	# First remove the existing unit
 	units.erase(unit.board_position)
 	astar.set_point_disabled(_astar_from_board(unit.board_position), false)
+	# Move to new position
 	units[new_pos] = unit
 	unit.board_position = new_pos
-	astar.set_point_disabled(_astar_from_board(unit.board_position), true)
+	if old_unit:
+		old_unit.callbacks.on_overlap(self, old_unit, unit)
+	# Should we label this space as unmovable?
+	if not unit.can_be_moved_into():
+		astar.set_point_disabled(_astar_from_board(unit.board_position), true)
 	if move_visual:
 		unit.position = map_to_local(new_pos)
 

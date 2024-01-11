@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://b08b3ao85sn7q"]
 
-[ext_resource type="Script" path="res://scripts/actions/TeleportUnitAction.gd" id="1_6v812"]
+[ext_resource type="Script" path="res://scripts/unit/actions/TeleportUnitAction.gd" id="1_6v812"]
 
 [resource]
 script = ExtResource("1_6v812")
