@@ -103,7 +103,7 @@ func advance_turn():
 	# Reset next team and move camera
 	deselect_unit()
 	var units = board.get_team_units(team_idx)
-	if not units.empty():
+	if not units.is_empty():
 		var camera_pos = Vector2.ZERO
 		for unit in units:
 			camera_pos += board.map_to_local(unit.board_position)

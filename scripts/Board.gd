@@ -34,8 +34,10 @@ func get_team_units(team : int):
 
 func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
 	units.erase(unit.board_position)
+	astar.set_point_disabled(_astar_from_board(unit.board_position), false)
 	units[new_pos] = unit
 	unit.board_position = new_pos
+	astar.set_point_disabled(_astar_from_board(unit.board_position), true)
 	if move_visual:
 		unit.position = map_to_local(new_pos)
 
@@ -151,6 +153,11 @@ func space_is_highlighted(space : Vector2i) -> bool:
 	return get_cell_source_id(OVERLAY_LAYER, space) != -1
 
 #== ASTAR SETUP & UTILITIES ==#
+
+func _astar_from_board(pos : Vector2i):
+	var rect = get_used_rect()
+	pos -= rect.position
+	return pos.x + pos.y * rect.size.x
 
 func _astar_from_pos(pos : Vector2i):
 	var rect = get_used_rect()
