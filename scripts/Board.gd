@@ -5,8 +5,6 @@ const BASE_LAYER := 0
 const OVERLAY_LAYER := 1
 const OVERLAY_TILE_INDEX := 1
 
-const UnitData = [preload("res://UnitArrowBox.tres"), preload("res://UnitGC.tres")]
-
 const UnitScene = preload("res://unit.tscn")
 
 var units = {}
@@ -14,13 +12,8 @@ var astar : AStar2D
 
 func _ready():	
 	_build_pathfinding_graph()
-	
-	var x = 0
-	for unit in UnitData:
-		add_unit(Vector2i(5 + x,5), unit)
-		x += 1
 
-func add_unit(pos : Vector2i, data : UnitDefinition, team : int = -1):
+func add_unit(data : UnitDefinition, pos : Vector2i, team : int = -1):
 	if units.get(pos):
 		print('Attempting to spawn unit in occupied space! ', pos)
 		return null
@@ -35,6 +28,9 @@ func add_unit(pos : Vector2i, data : UnitDefinition, team : int = -1):
 
 func get_unit(pos : Vector2i):
 	return units.get(pos)
+
+func get_team_units(team : int):
+	return units.values().filter(func(unit): return unit.team == team)
 
 func move_unit(unit, new_pos : Vector2i):
 	units.erase(unit.board_position)

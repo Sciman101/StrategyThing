@@ -1,9 +1,20 @@
 extends Node2D
 
+const UnitGC = preload("res://UnitGC.tres")
+const UnitArrowBox = preload("res://UnitArrowBox.tres")
+
+const NUM_TEAMS := 2
+
 @onready var cursor = $Cursor
 @onready var camera = $Camera2D
 @onready var board = $Board
 @onready var controls = $UI/Controls
+
+@onready var turn_counter = $UI/TurnCounter
+
+# Turn management
+var turn = 0
+var team_idx = 1
 
 var cursor_pos : Vector2i
 
@@ -17,10 +28,23 @@ func _ready():
 	deselect_unit()
 	controls.action_selected.connect(_action_selected)
 	
+	turn_counter.end_turn.connect(advance_turn)
+	turn_counter.display_turn_info(turn, team_idx)
+	
 	# Assign bounding rect to the camera
 	var rect = board.get_used_rect()
 	camera.bounding_rect = Rect2(board.map_to_local(rect.position),Vector2.ZERO)
 	camera.bounding_rect = camera.bounding_rect.expand(board.map_to_local(rect.position + rect.size))
+	
+	# Create units
+	board.add_unit(UnitGC, Vector2i(5,5) , 1)
+	board.add_unit(UnitGC, Vector2i(5,6), 1)
+	board.add_unit(UnitArrowBox, Vector2i(10,5) , 2)
+	board.add_unit(UnitArrowBox, Vector2i(10,6), 2)
+	
+	# Start
+	team_idx = 0
+	advance_turn()
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -34,7 +58,7 @@ func _unhandled_input(event):
 				process_action.emit({highlighted_cell=cursor_pos})
 			if not selected_unit:
 				var hovered_unit = board.get_unit(cursor_pos)
-				controls.show_unit_info(hovered_unit)
+				controls.show_unit_info(hovered_unit, false)
 	
 	elif event is InputEventMouseButton:
 		if current_action == null:
@@ -66,10 +90,30 @@ func _unhandled_input(event):
 					board.highlight_clear()
 					select_unit(selected_unit)
 
+# Turn management
+func advance_turn():
+	team_idx += 1
+	if team_idx > NUM_TEAMS: # Teams are either 1 or 2
+		team_idx = 1
+		turn += 1
+	deselect_unit()
+	turn_counter.display_turn_info(turn, team_idx)
+	# Pan camera
+	var units = board.get_team_units(team_idx)
+	var pos = Vector2.ZERO
+	for unit in units:
+		pos += board.map_to_local(unit.board_position)
+		unit.pulse_highlight()
+	pos /= units.size()
+	print(pos)
+	camera.pan_to(pos)
+
+# Unit selection
 func select_unit(unit):
 	selected_unit = unit
 	unit.select()
-	controls.show_unit_info(unit)
+	var can_control = unit.team == team_idx
+	controls.show_unit_info(unit, can_control)
 
 func deselect_unit():
 	if selected_unit:

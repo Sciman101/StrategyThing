@@ -25,7 +25,7 @@ func execute(game, board, unit, control_signal, set_busy):
 				game.deselect_unit()
 				move_valid = true
 				
-				var new_unit = board.add_unit(target_pos, unit.unit_data, unit.team)
+				var new_unit = board.add_unit(unit.unit_data, target_pos, unit.team)
 				var o = new_unit.offset
 				new_unit.offset = Vector2.UP * 200
 				set_busy.call(true)

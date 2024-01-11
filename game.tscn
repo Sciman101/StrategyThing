@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl3ho2nc5r4oc"]
+[gd_scene load_steps=8 format=3 uid="uid://dl3ho2nc5r4oc"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_npc24"]
 [ext_resource type="TileSet" uid="uid://t8uktdrwmjx5" path="res://board_tiles.tres" id="2_emj0f"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/Board.gd" id="3_igans"]
 [ext_resource type="Texture2D" uid="uid://c2t1is4xs3k0" path="res://textures/cursor.png" id="4_15725"]
 [ext_resource type="Script" path="res://scripts/UnitControls.gd" id="5_j524e"]
+[ext_resource type="Script" path="res://scripts/TurnCounter.gd" id="7_r3w7k"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_npc24")
@@ -101,3 +102,22 @@ text = "Move"
 layout_mode = 2
 size_flags_vertical = 1
 text = "Action info here"
+
+[node name="TurnCounter" type="VBoxContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -116.0
+offset_bottom = 52.0
+grow_horizontal = 0
+script = ExtResource("7_r3w7k")
+
+[node name="Label" type="Label" parent="UI/TurnCounter"]
+layout_mode = 2
+text = "Turn Number
+Player 1"
+
+[node name="AdvanceTurnBtn" type="Button" parent="UI/TurnCounter"]
+layout_mode = 2
+focus_mode = 0
+text = "End Turn"

@@ -1,6 +1,9 @@
 extends AnimatedSprite2D
 
 const BASE_AP := 3
+const PULSE_DURATION := 0.4
+
+@onready var highlight = $Highlight
 
 @export var unit_data : UnitDefinition
 
@@ -16,11 +19,22 @@ var team : int = -1 # Unassigned by default
 var board
 var board_position : Vector2i
 
+func _ready():
+	highlight.position = offset
+	highlight.modulate = Color.TRANSPARENT
+
 func select():
 	modulate = Color.GREEN
 
 func deselect():
 	modulate = Color.WHITE
+
+func pulse_highlight():
+	highlight.modulate = Color.WHITE
+	highlight.scale = Vector2.ONE * 1.5
+	var tween = get_tree().create_tween()
+	tween.tween_property(highlight, 'scale', Vector2.ONE, PULSE_DURATION).set_ease(Tween.EASE_OUT)
+	tween.tween_property(highlight, 'modulate', Color.TRANSPARENT, PULSE_DURATION).set_ease(Tween.EASE_OUT)
 
 func follow_path(board_path : Array): # Path is expected in tilemap/board coordinates
 	if not board:

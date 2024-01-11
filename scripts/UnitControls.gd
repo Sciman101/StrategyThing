@@ -10,14 +10,14 @@ signal action_selected(action : UnitAction)
 var last_unit = null
 
 func _ready():
-	show_unit_info(null)
+	show_unit_info(null, true)
 	for btn in action_buttons:
 		btn.pressed.connect(_action_button_chosen.bind(btn.get_index()))
 		btn.mouse_entered.connect(_action_button_hovered.bind(btn.get_index()))
 		btn.mouse_exited.connect(_action_button_unhovered)
 	actioninfobox.hide()
 
-func show_unit_info(unit):
+func show_unit_info(unit, enable_actions = true):
 	if unit:
 		infobox.text = unit.get_info_string()
 		actions.show()
@@ -28,7 +28,7 @@ func show_unit_info(unit):
 			else:
 				action_buttons[i].show()
 				action_buttons[i].text = unit_actions[i].name
-				action_buttons[i].disabled = unit.action_points < unit_actions[i].ap_cost
+				action_buttons[i].disabled = not enable_actions or unit.action_points < unit_actions[i].ap_cost
 	else:
 		infobox.text = "No unit selected"
 		actions.hide()
