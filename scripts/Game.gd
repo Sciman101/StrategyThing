@@ -14,7 +14,7 @@ const NUM_TEAMS := 2
 
 # Turn management
 var turn = 0
-var team_idx = 1
+var team_idx = 0
 
 var cursor_pos : Vector2i
 
@@ -37,14 +37,12 @@ func _ready():
 	camera.bounding_rect = camera.bounding_rect.expand(board.map_to_local(rect.position + rect.size))
 	
 	# Create units
-	board.add_unit(UnitGC, Vector2i(5,5) , 1)
-	board.add_unit(UnitGC, Vector2i(5,6), 1)
-	board.add_unit(UnitArrowBox, Vector2i(10,5) , 2)
-	board.add_unit(UnitArrowBox, Vector2i(10,6), 2)
+	board.add_unit(UnitGC, Vector2i(5,5) , 0)
+	board.add_unit(UnitGC, Vector2i(5,6), 0)
+	board.add_unit(UnitArrowBox, Vector2i(10,5) , 1)
+	board.add_unit(UnitArrowBox, Vector2i(10,6), 1)
 	
-	# Start
-	team_idx = 0
-	advance_turn()
+	start_game()
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -91,22 +89,29 @@ func _unhandled_input(event):
 					select_unit(selected_unit)
 
 # Turn management
+func start_game():
+	team_idx = -1
+	advance_turn()
+
 func advance_turn():
+	# Increment the current team
 	team_idx += 1
-	if team_idx > NUM_TEAMS: # Teams are either 1 or 2
-		team_idx = 1
+	if team_idx >= NUM_TEAMS: # Teams are either 0 or 1
+		team_idx = 0
 		turn += 1
-	deselect_unit()
 	turn_counter.display_turn_info(turn, team_idx)
-	# Pan camera
+	# Reset next team and move camera
+	deselect_unit()
 	var units = board.get_team_units(team_idx)
-	var pos = Vector2.ZERO
-	for unit in units:
-		pos += board.map_to_local(unit.board_position)
-		unit.pulse_highlight()
-	pos /= units.size()
-	print(pos)
-	camera.pan_to(pos)
+	if not units.empty():
+		var camera_pos = Vector2.ZERO
+		for unit in units:
+			camera_pos += board.map_to_local(unit.board_position)
+			unit.pulse_highlight()
+			unit.replenish_ap()
+		
+		camera_pos /= units.size()
+		camera.pan_to(camera_pos)
 
 # Unit selection
 func select_unit(unit):

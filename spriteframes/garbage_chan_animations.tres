@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://br75bjvhng1dj"]
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://br75bjvhng1dj"]
 
 [ext_resource type="Texture2D" uid="uid://bj5r3ld1822l8" path="res://textures/Garbage-Chan.png" id="1_xmt7n"]
 
@@ -9,6 +9,10 @@ region = Rect2(0, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1s0nw"]
 atlas = ExtResource("1_xmt7n")
 region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0011m"]
+atlas = ExtResource("1_xmt7n")
+region = Rect2(192, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yyikr"]
 atlas = ExtResource("1_xmt7n")
@@ -30,6 +34,14 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0011m")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,

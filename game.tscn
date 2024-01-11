@@ -100,8 +100,10 @@ text = "Move"
 
 [node name="ActionInfo" type="Label" parent="UI/Controls/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Action info here"
+autowrap_mode = 2
 
 [node name="TurnCounter" type="VBoxContainer" parent="UI"]
 anchors_preset = 1

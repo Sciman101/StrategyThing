@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://w5ms88vui174"]
+
+[ext_resource type="Script" path="res://scripts/actions/SimpleAttackUnitAction.gd" id="1_7h1n7"]
+
+[resource]
+script = ExtResource("1_7h1n7")
+damage = 1
+pushback_amt = 2
+name = "Kick"
+description = "Damage a unit for 1 health and push them back slightly"
+ap_cost = 1

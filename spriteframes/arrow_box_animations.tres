@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bt1q5jic0m48f"]
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://bt1q5jic0m48f"]
 
 [ext_resource type="Texture2D" uid="uid://dh32c3uup2m3g" path="res://textures/Arrow Box.png" id="1_ctvns"]
 
@@ -9,6 +9,10 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ehjx6"]
 atlas = ExtResource("1_ctvns")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri2vl"]
+atlas = ExtResource("1_ctvns")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qcebl"]
 atlas = ExtResource("1_ctvns")
@@ -34,6 +38,14 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ri2vl")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,

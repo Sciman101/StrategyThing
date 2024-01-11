@@ -32,14 +32,21 @@ func get_unit(pos : Vector2i):
 func get_team_units(team : int):
 	return units.values().filter(func(unit): return unit.team == team)
 
-func move_unit(unit, new_pos : Vector2i):
+func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
 	units.erase(unit.board_position)
 	units[new_pos] = unit
 	unit.board_position = new_pos
-	unit.position = map_to_local(new_pos)
+	if move_visual:
+		unit.position = map_to_local(new_pos)
+
+func remove_unit(unit):
+	units.erase(unit.board_position)
 
 func space_exists(pos : Vector2i):
 	return get_cell_source_id(BASE_LAYER, pos) != -1
+
+func space_traversable(pos : Vector2i):
+	return space_exists(pos)
 
 func find_path(start : Vector2i, end : Vector2i, crunch:bool=false):
 	var rect = get_used_rect()
@@ -74,6 +81,16 @@ func crunch_path(board_path : Array):
 	if new_path[-1] != board_path[-1]:
 		new_path.append(board_path[-1])
 	return new_path
+
+# Moves a fake object from 'from' by 'dir', 'dist' times, returning anything we hit or the final position
+func test_linear_move(from : Vector2i, dir : Vector2i, dist : int):
+	var pos = from
+	var target = from + dir * dist
+	while pos != target:
+		pos += dir
+		if not space_traversable(pos) or get_unit(pos):
+			return pos - dir
+	return pos
 
 #== Overlay Layer ==#
 func highlight_clear():
@@ -119,6 +136,11 @@ func highlight_path(path : Array):
 				next = path[idx + 1]
 			dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
 	highlight_cell(path[-1])
+
+func highlight_units(team : int = -1):
+	for cell in units.keys():
+		if team == -1 or units[cell].team == team:
+			set_cell(OVERLAY_LAYER, cell, OVERLAY_TILE_INDEX, Vector2.ZERO)
 
 func unhighlight_occupied_cells():
 	for cell in units.keys():

@@ -22,6 +22,7 @@ var board_position : Vector2i
 func _ready():
 	highlight.position = offset
 	highlight.modulate = Color.TRANSPARENT
+	animation_finished.connect(_animation_finished)
 
 func select():
 	modulate = Color.GREEN
@@ -35,6 +36,28 @@ func pulse_highlight():
 	var tween = get_tree().create_tween()
 	tween.tween_property(highlight, 'scale', Vector2.ONE, PULSE_DURATION).set_ease(Tween.EASE_OUT)
 	tween.tween_property(highlight, 'modulate', Color.TRANSPARENT, PULSE_DURATION).set_ease(Tween.EASE_OUT)
+
+func replenish_ap():
+	action_points = BASE_AP
+
+func hurt(damage : int, pushback : Vector2i):
+	health -= damage
+	play(&'hurt')
+	
+	if health <= 0:
+		# Ganon voice: DIE!!!
+		board.remove_unit(self)
+		visible = false
+		return
+	
+	if pushback != Vector2i.ZERO:
+		var dir = pushback.clamp(-Vector2i.ONE, Vector2i.ONE)
+		var final_pos = board.test_linear_move(board_position, dir, pushback.length())
+		var old_pos = board_position
+		var world_pos = board.map_to_local(final_pos)
+		var tween = get_tree().create_tween().tween_property(self, 'position', world_pos, (old_pos - final_pos).length() * 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
+		await tween.finished
+		board.move_unit(self, final_pos)
 
 func follow_path(board_path : Array): # Path is expected in tilemap/board coordinates
 	if not board:
@@ -66,3 +89,6 @@ func set_unit_data(data : UnitDefinition, reset : bool = true):
 	sprite_frames = unit_data.board_animations
 	
 	play(&'default') # Default 
+
+func _animation_finished():
+	play(&'default') # Default
