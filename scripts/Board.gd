@@ -39,7 +39,7 @@ func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
 	
 	# First remove the existing unit
 	units.erase(unit.board_position)
-	astar.set_point_disabled(_astar_from_board(unit.board_position), false)
+	_astar_set_cell_enabled(unit.board_position, true)
 	# Move to new position
 	units[new_pos] = unit
 	unit.board_position = new_pos
@@ -47,7 +47,8 @@ func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
 		old_unit.callbacks.on_overlap(self, old_unit, unit)
 	# Should we label this space as unmovable?
 	if not unit.can_be_moved_into():
-		astar.set_point_disabled(_astar_from_board(unit.board_position), true)
+		_astar_set_cell_enabled(unit.board_position, false)
+	# If true, move the sprite to the correct location
 	if move_visual:
 		unit.position = map_to_local(new_pos)
 
@@ -163,6 +164,11 @@ func space_is_highlighted(space : Vector2i) -> bool:
 	return get_cell_source_id(OVERLAY_LAYER, space) != -1
 
 #== ASTAR SETUP & UTILITIES ==#
+
+func _astar_set_cell_enabled(cell : Vector2i, enabled : bool):
+	var index = _astar_from_board(cell)
+	if astar.has_point(index):
+		astar.set_point_disabled(index, not enabled)
 
 func _astar_from_board(pos : Vector2i):
 	var rect = get_used_rect()

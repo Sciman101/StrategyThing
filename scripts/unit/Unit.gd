@@ -10,7 +10,6 @@ const PULSE_DURATION := 0.4
 
 # Unit stats
 var health : int
-var power : int
 var speed : int
 var action_points : int
 
@@ -87,7 +86,7 @@ func follow_path(board_path : Array): # Path is expected in tilemap/board coordi
 		prev = point
 
 func get_info_string():
-	return "%s\n%d AP\nHealth: %d/%d\nSpeed: %d\nPower: %d" % [unit_data.name, action_points, health, unit_data.max_health, speed, power]
+	return "%s\n%d AP\nHealth: %d/%d\nSpeed: %d tiles" % [unit_data.name, action_points, health, unit_data.max_health, speed]
 
 func set_unit_data(data : UnitDefinition, reset : bool = true):
 	unit_data = data
@@ -95,7 +94,6 @@ func set_unit_data(data : UnitDefinition, reset : bool = true):
 	# Set properties
 	if reset:
 		health = unit_data.max_health
-		power = unit_data.base_power
 		speed = unit_data.base_speed
 		action_points = BASE_AP
 	
