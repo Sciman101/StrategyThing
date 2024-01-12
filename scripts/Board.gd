@@ -13,6 +13,8 @@ var astar : AStar2D
 func _ready():	
 	_build_pathfinding_graph()
 
+#== Unit management ==#
+
 func add_unit(data : UnitDefinition, pos : Vector2i, team : int = -1):
 	if units.get(pos):
 		print('Attempting to spawn unit in occupied space! ', pos)
@@ -54,6 +56,8 @@ func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
 
 func remove_unit(unit):
 	units.erase(unit.board_position)
+
+#== Space management ==#
 
 func space_exists(pos : Vector2i):
 	return get_cell_source_id(BASE_LAYER, pos) != -1

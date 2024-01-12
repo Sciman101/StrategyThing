@@ -24,5 +24,5 @@ func execute(game, board, unit, control_signal, set_busy):
 					set_busy.call(true)
 					var dir = (enemy_unit.board_position - unit.board_position).clamp(-Vector2i.ONE, Vector2i.ONE)
 					print(dir * pushback_amt)
-					await enemy_unit.hurt(damage, dir * pushback_amt)
+					await enemy_unit.hurt(damage, dir * pushback_amt, self)
 					set_busy.call(false)

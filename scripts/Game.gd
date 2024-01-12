@@ -27,6 +27,7 @@ signal process_action
 func _ready():
 	deselect_unit()
 	controls.action_selected.connect(_action_selected)
+	controls.mouse_entered.connect(cursor.hide)
 	
 	turn_counter.end_turn.connect(advance_turn)
 	turn_counter.display_turn_info(turn, team_idx)
@@ -51,6 +52,7 @@ func _unhandled_input(event):
 		var prev_cursor_pos = cursor_pos
 		cursor_pos = board.local_to_map(mp)
 		if prev_cursor_pos != cursor_pos:
+			cursor.show()
 			cursor.position = board.map_to_local(cursor_pos)
 			if current_action:
 				process_action.emit({highlighted_cell=cursor_pos})
