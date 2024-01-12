@@ -46,6 +46,8 @@ func _ready():
 	start_game()
 
 func _unhandled_input(event):
+	if is_busy: return
+	
 	if event is InputEventMouseMotion:
 		# Move the cursor
 		var mp = get_global_mouse_position()
@@ -82,13 +84,12 @@ func _unhandled_input(event):
 				
 			# Feed selection back into the current action
 			elif Input.is_action_just_released("deselect"):
-				if not is_busy:
-					# Stop it
-					process_action.emit({cancel=true}) # Send a signal to abort the current action
-					current_action = null
-					controls.show()
-					board.highlight_clear()
-					select_unit(selected_unit)
+				# Stop it
+				process_action.emit({cancel=true}) # Send a signal to abort the current action
+				current_action = null
+				controls.show()
+				board.highlight_clear()
+				select_unit(selected_unit)
 
 # Turn management
 func start_game():
@@ -129,8 +130,10 @@ func deselect_unit():
 	controls.show_unit_info(null)
 	board.highlight_clear()
 
+# Set whether the user is allowed to do inputs
 func set_busy(busy : bool):
 	is_busy = busy
+	cursor.visible = not busy
 
 func _action_selected(action : UnitAction):
 	controls.hide()
