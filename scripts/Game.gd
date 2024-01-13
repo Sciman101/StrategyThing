@@ -38,10 +38,12 @@ func _ready():
 	camera.bounding_rect = camera.bounding_rect.expand(board.map_to_local(rect.position + rect.size))
 	
 	# Create units
-	board.add_unit(UnitGC, Vector2i(5,5) , 0)
-	board.add_unit(UnitGC, Vector2i(5,6), 0)
-	board.add_unit(UnitArrowBox, Vector2i(10,5) , 1)
-	board.add_unit(UnitArrowBox, Vector2i(10,6), 1)
+	board.add_unit(UnitGC, Vector2i(3,1) , 0)
+	board.add_unit(UnitGC, Vector2i(3,4), 0)
+	board.add_unit(UnitGC, Vector2i(3,7), 0)
+	board.add_unit(UnitArrowBox, Vector2i(19,1) , 1)
+	board.add_unit(UnitArrowBox, Vector2i(19,4) , 1)
+	board.add_unit(UnitArrowBox, Vector2i(19,7) , 1)
 	
 	start_game()
 
@@ -114,6 +116,7 @@ func advance_turn():
 			unit.replenish_ap()
 		
 		camera_pos /= units.size()
+		camera.return_position = camera_pos
 		camera.pan_to(camera_pos)
 
 # Unit selection
