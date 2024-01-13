@@ -8,9 +8,10 @@ const NUM_TEAMS := 2
 @onready var cursor = $Cursor
 @onready var camera = $Camera2D
 @onready var board = $Board
-@onready var controls = $UI/Controls
 
+@onready var controls = $UI/Controls
 @onready var turn_counter = $UI/TurnCounter
+@onready var fight_splash = $UI/FightSplash
 
 # Turn management
 var turn = 0
@@ -41,9 +42,9 @@ func _ready():
 	board.add_unit(UnitGC, Vector2i(3,1) , 0)
 	board.add_unit(UnitGC, Vector2i(3,4), 0)
 	board.add_unit(UnitGC, Vector2i(3,7), 0)
-	board.add_unit(UnitArrowBox, Vector2i(19,1) , 1)
-	board.add_unit(UnitArrowBox, Vector2i(19,4) , 1)
-	board.add_unit(UnitArrowBox, Vector2i(19,7) , 1)
+	board.add_unit(UnitArrowBox, Vector2i(19,1), 1)
+	board.add_unit(UnitArrowBox, Vector2i(19,4), 1)
+	board.add_unit(UnitArrowBox, Vector2i(19,7), 1)
 	
 	start_game()
 

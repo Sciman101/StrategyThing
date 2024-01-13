@@ -14,7 +14,7 @@ func _ready():
 	return_position = position
 
 func _unhandled_input(event):
-	if not is_tweening():
+	if can_move():
 		if event is InputEventMouseMotion:
 			if Input.is_action_pressed("drag_camera"):
 				position -= event.relative / zoom
@@ -25,7 +25,7 @@ func _unhandled_input(event):
 
 func _process(delta):
 	
-	if not is_tweening():
+	if can_move():
 		var move = Input.get_vector("camera_left", "camera_right", "camera_up", "camera_down")
 		position += move.normalized() * delta * camera_move_speed / zoom
 		clamp_position()
@@ -41,8 +41,8 @@ func _process(delta):
 func clamp_position():
 	position = position.clamp(bounding_rect.position, bounding_rect.position + bounding_rect.size)
 
-func is_tweening():
-	return tween and tween.is_running()
+func can_move():
+	return not (tween and tween.is_running())
 
 func pan_to(pos : Vector2):
 	tween = get_tree().create_tween()
