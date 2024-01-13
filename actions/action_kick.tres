@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_7h1n7")
 damage = 1
-pushback_amt = 2
+pushback_amt = 1
 name = "Kick"
 description = "Damage a unit for 1 health and push them back slightly"
 ap_cost = 1

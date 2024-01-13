@@ -1,5 +1,7 @@
 extends Camera2D
 
+@export var camera_move_speed : float = 300
+
 var bounding_rect : Rect2
 
 var initial_position : Vector2
@@ -14,14 +16,20 @@ func _ready():
 func _unhandled_input(event):
 	if not is_tweening():
 		if event is InputEventMouseMotion:
-			if Input.is_action_pressed("move_camera"):
+			if Input.is_action_pressed("drag_camera"):
 				position -= event.relative
 				clamp_position()
 		
 		if Input.is_action_just_pressed("reset_camera"):
-			position = initial_position
+			pan_to(initial_position)
 
 func _process(delta):
+	
+	if not is_tweening():
+		var move = Input.get_vector("camera_left", "camera_right", "camera_up", "camera_down")
+		position += move.normalized() * get_process_delta_time() * camera_move_speed
+		clamp_position()
+	
 	if screenshake_duration > 0:
 		screenshake_duration -= delta
 		if screenshake_duration <= 0:
