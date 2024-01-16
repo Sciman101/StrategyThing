@@ -110,62 +110,16 @@ func test_linear_move(from : Vector2i, dir : Vector2i, dist : int):
 	return pos
 
 #== Overlay Layer ==#
+func create_selection():
+	return Selection.new(self)
+
 func highlight_clear():
 	clear_layer(OVERLAY_LAYER)
 
-func highlight_cell(pos : Vector2i, allow_empty : bool = false):
-	if allow_empty or space_exists(pos):
-		set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
-
-func highlight_movement_range(unit):
-	for x in range(-unit.speed, unit.speed+1):
-		for y in range(-unit.speed, unit.speed+1):
-			var pos = unit.board_position + Vector2i(x,y)
-			if space_exists(pos):
-				if manhatten_dist(pos, unit.board_position) <= unit.speed:
-					set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
-
-func highlight_all_spaces():
-	var rect = get_used_rect()
-	for x in range(rect.position.x, rect.position.x + rect.size.x):
-		for y in range(rect.position.y, rect.position.y + rect.size.y):
-			var pos = Vector2i(x,y)
-			if space_exists(pos):
-				set_cell(OVERLAY_LAYER, pos, OVERLAY_TILE_INDEX, Vector2.ZERO)
-
-func highlight_path(path : Array):
-	if path.size() == 0: return
-	if path.size() == 1:
-		highlight_cell(path[0])
-		return
-	var curr = path[0]
-	var next = path[1]
-	var end = path[-1]
-	var dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
-	var idx = 0
-	while curr != end:
-		highlight_cell(curr, true)
-		curr += dir
-		if curr == next:
-			idx += 1
-			curr = next
-			if idx < path.size() - 1:
-				next = path[idx + 1]
-			dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
-	highlight_cell(path[-1])
-
-func highlight_units(team : int = -1):
-	for cell in units.keys():
-		if team == -1 or units[cell].team == team:
+func highlight_selection(selection):
+	for cell in selection.cells.keys():
+		if selection.cells[cell]:
 			set_cell(OVERLAY_LAYER, cell, OVERLAY_TILE_INDEX, Vector2.ZERO)
-
-func unhighlight_occupied_cells():
-	for cell in units.keys():
-		set_cell(OVERLAY_LAYER, cell)
-
-func space_is_highlighted(space : Vector2i) -> bool:
-	if not space: return false
-	return get_cell_source_id(OVERLAY_LAYER, space) != -1
 
 #== ASTAR SETUP & UTILITIES ==#
 
@@ -221,3 +175,126 @@ func _build_pathfinding_graph():
 #== Helpers ==#
 func manhatten_dist(a:Vector2i, b:Vector2i) -> int:
 	return abs(a.x - b.x) + abs(a.y - b.y)
+
+class Selection:
+	var cells = {}
+	var board
+	
+	func _init(board):
+		self.board = board
+	
+	func has(position : Vector2i):
+		return cells.get(position, false)
+	
+	func list_cells():
+		return cells.keys().filter(func(cell): cells[cell])
+	
+	func clone():
+		var new = Selection.new(self.board)
+		new.cells = cells.duplicate()
+		return new
+	
+	func cleanup():
+		var list = cells.keys()
+		for pos in list:
+			if not list[pos]:
+				cells.erase(pos)
+	
+	## Boolean operators ##
+	func union(selection):
+		for cell in selection.list_cells():
+			select_cell(cell)
+		return self
+	
+	func intersection(selection):
+		for cell in cells.keys():
+			if not selection.has(cell):
+				select_cell(cell, false)
+		for cell in selection.list_cells():
+			if not cells[cell]:
+				select_cell(cell, false)
+		return self
+	
+	func difference(selection):
+		for cell in selection.list_cells():
+			if cells[cell]:
+				select_cell(cell, false)
+		return self
+	
+	## Basic selectors ##
+	func select_cell(pos : Vector2i, selected : bool = true):
+		cells[pos] = selected
+		return self
+	
+	func clear():
+		cells = {}
+		return self
+	
+	func invert():
+		for cell in cells:
+			cells[cell] = not cells[cell]
+		return self
+	
+	func select_all(include_empty : bool = false):
+		var rect = board.get_used_rect()
+		var size = rect.size
+		for x in size.x:
+			for y in size.y:
+				var pos = rect.position + Vector2i(x,y)
+				if board.space_exists(pos) or include_empty:
+					cells[pos] = true
+		return self
+	
+	func select_within_range(center : Vector2i, distance : int, selected : bool = true):
+		for x in range(-distance, distance + 1):
+			for y in range(-distance, distance + 1):
+				var pos = center + Vector2i(x,y)
+				if board.space_exists(pos):
+					if board.manhatten_dist(pos, center) <= distance:
+						select_cell(pos, selected)
+		return self
+	
+	func select_units(team : int = -1, selected : bool = true):
+		for cell in board.units.keys():
+			if team == -1 or board.units[cell].team == team:
+				select_cell(cell, selected)
+		return self
+	
+	## Select multiple
+	func select_array(cells_list : Array, selected : bool = true):
+		for cell in cells_list:
+			cells[cell] = selected
+		return self
+	
+	## Select multiple relative to an origin
+	func select_array_relative(center : Vector2i, cells_list : Array, selected : bool = true):
+		for cell in cells_list:
+			cells[cell + center] = selected
+		return self
+	
+	## Given a path, select each cell and the space between them
+	func select_path(path : Array, selected : bool = true):
+		if path.size() == 0: return
+		if path.size() == 1:
+			select_cell(path[0], selected)
+			return self
+		var curr = path[0]
+		var next = path[1]
+		var end = path[-1]
+		var dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
+		var idx = 0
+		while curr != end:
+			select_cell(curr, selected)
+			curr += dir
+			if curr == next:
+				idx += 1
+				curr = next
+				if idx < path.size() - 1:
+					next = path[idx + 1]
+				dir = (next - curr).clamp(-Vector2i.ONE, Vector2i.ONE)
+		select_cell(path[-1], selected)
+		return self
+	
+	func highlight_board():
+		board.highlight_selection(self)
+		return self

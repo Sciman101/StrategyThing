@@ -2,8 +2,7 @@ extends UnitAction
 
 func execute(game, board, unit, control_signal, set_busy):
 	# Start by highlighting the available spaces
-	board.highlight_all_spaces()
-	board.unhighlight_occupied_cells()
+	var selection = board.create_selection().select_all().select_units(-1, false).highlight_board()
 	var move_valid = false
 	var target_pos
 	while not move_valid:
@@ -13,7 +12,7 @@ func execute(game, board, unit, control_signal, set_busy):
 		
 		target_pos = result.get('selected_cell')
 		if target_pos:
-			if board.space_is_highlighted(target_pos):
+			if selection.has(target_pos):
 				# Ok! We can move now
 				game.deselect_unit()
 				move_valid = true

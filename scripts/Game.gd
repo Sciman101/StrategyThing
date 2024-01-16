@@ -142,6 +142,7 @@ func set_busy(busy : bool):
 
 func _action_selected(action : UnitAction):
 	controls.hide()
+	turn_counter.set_interaction_enabled(false)
 	current_action = action
 	# Begin action execution
 	var unit = selected_unit
@@ -150,4 +151,5 @@ func _action_selected(action : UnitAction):
 	# Take AP from unit
 	unit.action_points -= action.ap_cost
 	current_action = null
+	turn_counter.set_interaction_enabled(true)
 	controls.show()

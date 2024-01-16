@@ -2,10 +2,15 @@ extends UnitAction
 
 @export var damage : int = 1
 @export var pushback_amt : int = 0
+@export var max_distance : int = 1
 
 func execute(game, board, unit, control_signal, set_busy):
 	# Highlight all enemy units
-	board.highlight_units(1 - unit.team)
+	var range_selection = board.create_selection().select_within_range(unit.board_position, max_distance)
+	var selection = board.create_selection() \
+		.select_units(1 - unit.team) \
+		.intersection(range_selection) \
+		.highlight_board()
 	var target_valid = false
 	var target_pos
 	while not target_valid:
@@ -15,7 +20,7 @@ func execute(game, board, unit, control_signal, set_busy):
 		
 		target_pos = result.get('selected_cell')
 		if target_pos:
-			if board.space_is_highlighted(target_pos):
+			if selection.has(target_pos):
 				var enemy_unit = board.get_unit(target_pos)
 				if enemy_unit.team != unit.team:
 					# Kill them!!!!!!!!!

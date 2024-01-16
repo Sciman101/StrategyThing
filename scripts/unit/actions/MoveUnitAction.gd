@@ -2,8 +2,10 @@ extends UnitAction
 
 func execute(game, board, unit, control_signal, set_busy):
 	# Start by highlighting the available spaces
-	board.highlight_movement_range(unit)
-	board.unhighlight_occupied_cells()
+	var selection = board.create_selection() \
+		.select_within_range(unit.board_position, unit.speed) \
+		.select_units(-1, false) \
+		.highlight_board()
 	var move_valid = false
 	var target_pos
 	while not move_valid:
@@ -12,22 +14,21 @@ func execute(game, board, unit, control_signal, set_busy):
 			return
 		
 		if result.has('highlighted_cell'):
-			board.highlight_clear()
-			board.highlight_movement_range(unit)
-			board.unhighlight_occupied_cells()
+			var selection2 = selection.clone()
 			var pos = result.highlighted_cell
 			if board.manhatten_dist(pos, unit.board_position) <= unit.speed:
 				var path = board.find_path(unit.board_position, pos, true)
-				board.highlight_path(path)
+				selection2.select_path(path)
+				board.highlight_clear()
+				selection2.highlight_board()
 		
 		target_pos = result.get('selected_cell')
 		if target_pos and board.manhatten_dist(target_pos, unit.board_position) <= unit.speed:
-			if board.space_is_highlighted(target_pos):
+			if selection.has(target_pos):
 				var path = board.find_path(unit.board_position, target_pos, true)
 				if path.size() > 0:
 					# Ok! We can move now
 					game.deselect_unit()
-					board.highlight_path(path)
 					move_valid = true
 					board.move_unit(unit, target_pos)
 					unit.play(&'move')
