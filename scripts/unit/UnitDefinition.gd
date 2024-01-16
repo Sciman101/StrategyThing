@@ -5,6 +5,9 @@ extends Resource
 @export var identifier : String
 @export var name : String
 
+@export var portrait : Texture
+@export var logo : Texture
+
 @export var board_animations : SpriteFrames
 @export var attack_sprite : Texture
 @export var defend_sprite : Texture

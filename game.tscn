@@ -1,16 +1,40 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl3ho2nc5r4oc"]
+[gd_scene load_steps=27 format=3 uid="uid://dl3ho2nc5r4oc"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_npc24"]
 [ext_resource type="TileSet" uid="uid://t8uktdrwmjx5" path="res://board_tiles.tres" id="2_emj0f"]
 [ext_resource type="Script" path="res://scripts/CameraControl.gd" id="2_wt67t"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="3_igans"]
 [ext_resource type="Texture2D" uid="uid://c2t1is4xs3k0" path="res://textures/cursor.png" id="4_15725"]
-[ext_resource type="Script" path="res://scripts/UnitControls.gd" id="5_j524e"]
-[ext_resource type="Script" path="res://scripts/TurnCounter.gd" id="7_r3w7k"]
+[ext_resource type="Script" path="res://scripts/ui/UnitControls.gd" id="6_w47en"]
+[ext_resource type="Texture2D" uid="uid://bcqs65hl6lckq" path="res://textures/ui/UI_Bar.png" id="7_yvh1b"]
 [ext_resource type="Texture2D" uid="uid://bp7ik2wnfshrr" path="res://textures/SplashBar.png" id="8_mt62a"]
+[ext_resource type="Texture2D" uid="uid://8dtvxxdq6jum" path="res://textures/GC/Portait.png" id="8_smo2s"]
 [ext_resource type="Script" path="res://scripts/FightSplash.gd" id="8_srlqb"]
-[ext_resource type="Texture2D" uid="uid://jnrcd0lgtj22" path="res://textures/Attack.png" id="9_p4126"]
-[ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://textures/Defend.png" id="10_8ckcm"]
+[ext_resource type="Texture2D" uid="uid://segtmyxmsuo6" path="res://textures/GC/Logo.png" id="9_qp7p1"]
+[ext_resource type="Texture2D" uid="uid://d3q83ayq74pw7" path="res://textures/ui/Meters.png" id="10_si3xq"]
+[ext_resource type="Script" path="res://scripts/ui/HealthBar.gd" id="11_u3mih"]
+[ext_resource type="FontFile" uid="uid://33pjnbckrfqv" path="res://EquipmentPro.ttf" id="12_1ogro"]
+[ext_resource type="Script" path="res://scripts/ui/ApBar.gd" id="12_stvn7"]
+[ext_resource type="Texture2D" uid="uid://cmw45f3es4psh" path="res://textures/ui/Ap Markers.png" id="13_d1jhl"]
+[ext_resource type="Script" path="res://scripts/ui/TurnCounter.gd" id="13_dp42v"]
+[ext_resource type="Texture2D" uid="uid://jnrcd0lgtj22" path="res://textures/GC/Attack.png" id="13_ida55"]
+[ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://textures/Arrow Box/Defend.png" id="14_4k1fm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtee8"]
+atlas = ExtResource("10_si3xq")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjpia"]
+atlas = ExtResource("10_si3xq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrkoi"]
+atlas = ExtResource("13_d1jhl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkcyx"]
+atlas = ExtResource("13_d1jhl")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="Animation" id="Animation_ylsqk"]
 length = 0.001
@@ -190,55 +214,133 @@ anchor_bottom = 1.0
 offset_top = -128.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 mouse_force_pass_scroll_events = false
-script = ExtResource("5_j524e")
+script = ExtResource("6_w47en")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Controls"]
+[node name="Background" type="TextureRect" parent="UI/Controls"]
+layout_mode = 0
+offset_top = -47.0
+offset_right = 640.0
+offset_bottom = 128.0
+texture = ExtResource("7_yvh1b")
+
+[node name="Portrait" type="TextureRect" parent="UI/Controls/Background"]
+layout_mode = 0
+offset_top = 47.0
+offset_right = 128.0
+offset_bottom = 175.0
+texture = ExtResource("8_smo2s")
+
+[node name="Logo" type="TextureRect" parent="UI/Controls/Background"]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 53.0
+offset_right = 261.0
+offset_bottom = 181.0
+texture = ExtResource("9_qp7p1")
+stretch_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="UI/Controls"]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 59.0
+offset_right = 229.0
+offset_bottom = 75.0
+value = 38.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = SubResource("AtlasTexture_rtee8")
+texture_progress = SubResource("AtlasTexture_pjpia")
+script = ExtResource("11_u3mih")
+
+[node name="Label" type="Label" parent="UI/Controls/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 32
+theme_override_fonts/font = ExtResource("12_1ogro")
+text = "1/1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="UnitInfo" type="Label" parent="UI/Controls/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "No Unit Selected"
+[node name="ApBar" type="Control" parent="UI/Controls"]
+anchors_preset = 0
+offset_left = 133.0
+offset_top = 80.0
+offset_right = 173.0
+offset_bottom = 120.0
+script = ExtResource("12_stvn7")
+filled = SubResource("AtlasTexture_rrkoi")
+empty = SubResource("AtlasTexture_gkcyx")
+value = 2
 
-[node name="Actions" type="VBoxContainer" parent="UI/Controls/HBoxContainer"]
-layout_mode = 2
+[node name="MouseBlocker" type="Control" parent="UI/Controls"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="ActionButton0" type="Button" parent="UI/Controls/HBoxContainer/Actions"]
+[node name="Actions" type="HBoxContainer" parent="UI/Controls"]
 layout_mode = 2
+offset_left = 213.0
+offset_top = 58.0
+offset_right = 484.0
+offset_bottom = 122.0
+
+[node name="ActionButton0" type="Button" parent="UI/Controls/Actions"]
+layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
+theme_override_fonts/font = ExtResource("12_1ogro")
 text = "Move"
 
-[node name="ActionButton1" type="Button" parent="UI/Controls/HBoxContainer/Actions"]
+[node name="ActionButton1" type="Button" parent="UI/Controls/Actions"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
+theme_override_fonts/font = ExtResource("12_1ogro")
 text = "Move"
 
-[node name="ActionButton2" type="Button" parent="UI/Controls/HBoxContainer/Actions"]
+[node name="ActionButton2" type="Button" parent="UI/Controls/Actions"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
+theme_override_fonts/font = ExtResource("12_1ogro")
 text = "Move"
 
-[node name="ActionButton3" type="Button" parent="UI/Controls/HBoxContainer/Actions"]
+[node name="ActionButton3" type="Button" parent="UI/Controls/Actions"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
+theme_override_fonts/font = ExtResource("12_1ogro")
 text = "Move"
 
-[node name="ActionButton4" type="Button" parent="UI/Controls/HBoxContainer/Actions"]
+[node name="ActionButton4" type="Button" parent="UI/Controls/Actions"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
+theme_override_fonts/font = ExtResource("12_1ogro")
 text = "Move"
 
-[node name="ActionInfo" type="Label" parent="UI/Controls/HBoxContainer"]
+[node name="ActionInfo" type="Label" parent="UI/Controls"]
 layout_mode = 2
+offset_left = 380.0
+offset_top = 50.0
+offset_right = 640.0
+offset_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("12_1ogro")
 text = "Action info here"
 autowrap_mode = 2
 
@@ -249,7 +351,7 @@ anchor_right = 1.0
 offset_left = -116.0
 offset_bottom = 52.0
 grow_horizontal = 0
-script = ExtResource("7_r3w7k")
+script = ExtResource("13_dp42v")
 
 [node name="Label" type="Label" parent="UI/TurnCounter"]
 layout_mode = 2
@@ -272,11 +374,11 @@ texture = ExtResource("8_mt62a")
 
 [node name="Attacker" type="Sprite2D" parent="UI/FightSplash"]
 position = Vector2(170, 180)
-texture = ExtResource("9_p4126")
+texture = ExtResource("13_ida55")
 
 [node name="Defender" type="Sprite2D" parent="UI/FightSplash"]
 position = Vector2(470, 180)
-texture = ExtResource("10_8ckcm")
+texture = ExtResource("14_4k1fm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/FightSplash"]
 libraries = {

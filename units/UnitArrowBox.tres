@@ -1,18 +1,22 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=6 format=3 uid="uid://btkogb0xitmpo"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=8 format=3 uid="uid://btkogb0xitmpo"]
 
 [ext_resource type="Resource" uid="uid://r8oh87vu3ff6" path="res://actions/action_move.tres" id="1_5ce00"]
 [ext_resource type="Resource" uid="uid://b08b3ao85sn7q" path="res://actions/action_teleport.tres" id="2_f3mex"]
-[ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://textures/Defend.png" id="3_v5gjd"]
+[ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://textures/Arrow Box/Defend.png" id="3_mttvf"]
 [ext_resource type="SpriteFrames" uid="uid://bt1q5jic0m48f" path="res://spriteframes/arrow_box_animations.tres" id="4_h7lxn"]
+[ext_resource type="Texture2D" uid="uid://bv4m3p45wfd5f" path="res://textures/Arrow Box/Logo.png" id="5_1otk8"]
 [ext_resource type="Script" path="res://scripts/unit/UnitDefinition.gd" id="5_t1yic"]
+[ext_resource type="Texture2D" uid="uid://b7uoud7xjphfx" path="res://textures/Arrow Box/Portrait.png" id="6_vbkqp"]
 
 [resource]
 script = ExtResource("5_t1yic")
 identifier = "arrow_box"
 name = "Arrow Box"
+portrait = ExtResource("6_vbkqp")
+logo = ExtResource("5_1otk8")
 board_animations = ExtResource("4_h7lxn")
-attack_sprite = ExtResource("3_v5gjd")
-defend_sprite = ExtResource("3_v5gjd")
+attack_sprite = ExtResource("3_mttvf")
+defend_sprite = ExtResource("3_mttvf")
 max_health = 4
 base_speed = 4
 actions = Array[Resource("res://scripts/unit/actions/UnitAction.gd")]([ExtResource("1_5ce00"), ExtResource("2_f3mex")])

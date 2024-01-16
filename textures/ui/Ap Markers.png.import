@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jnrcd0lgtj22"
-path="res://.godot/imported/Attack.png-1ed0081ee6ac897641c031b1b3f8c85c.ctex"
+uid="uid://cmw45f3es4psh"
+path="res://.godot/imported/Ap Markers.png-695ed472266417ee0a26558ab4cb2132.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Attack.png"
-dest_files=["res://.godot/imported/Attack.png-1ed0081ee6ac897641c031b1b3f8c85c.ctex"]
+source_file="res://textures/ui/Ap Markers.png"
+dest_files=["res://.godot/imported/Ap Markers.png-695ed472266417ee0a26558ab4cb2132.ctex"]
 
 [params]
 
