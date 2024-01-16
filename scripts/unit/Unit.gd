@@ -27,8 +27,11 @@ func _ready():
 	if unit_data.callbacks:
 		callbacks.set_script(unit_data.callbacks)
 
-func select():
-	modulate = Color.GREEN
+func select(team : int = -1):
+	if team == -1 or team == self.team:
+		modulate = Color.GREEN
+	else:
+		modulate = Color.RED
 
 func deselect():
 	modulate = Color.WHITE

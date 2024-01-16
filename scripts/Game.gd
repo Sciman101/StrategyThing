@@ -124,7 +124,7 @@ func advance_turn():
 # Unit selection
 func select_unit(unit):
 	selected_unit = unit
-	unit.select()
+	unit.select(team_idx)
 	var can_control = unit.team == team_idx
 	controls.show_unit_info(unit, can_control)
 
