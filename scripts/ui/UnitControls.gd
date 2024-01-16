@@ -3,8 +3,9 @@ extends Control
 @onready var portrait_rect = $Background/Portrait
 @onready var logo_rect = $Background/Logo
 
-@onready var health_bar = $HealthBar
-@onready var ap_bar = $ApBar
+@onready var health_bar = $UnitStats/HealthBar
+@onready var ap_bar = $UnitStats/ApBar
+@onready var extra_info = $UnitStats/ExtraInfo
 
 @onready var actioninfobox = $ActionInfo
 @onready var actions = $Actions
@@ -22,13 +23,18 @@ func _ready():
 		btn.mouse_exited.connect(_action_button_unhovered)
 	actioninfobox.hide()
 
-func show_unit_info(unit, enable_actions = true):
+func show_unit_info(unit, enable_actions = true, bounce = false):
 	if unit:
 		show()
+		if bounce:
+			# Do a lil bob animation
+			position.y = 240
+			get_tree().create_tween().tween_property(self, 'position', Vector2(0, 232), .05).set_ease(Tween.EASE_IN)
 		portrait_rect.texture = unit.unit_data.portrait
 		logo_rect.texture = unit.unit_data.logo
 		health_bar.set_unit(unit)
 		ap_bar.set_unit(unit)
+		extra_info.text = "Speed: " + str(unit.speed)
 		actions.show()
 		var unit_actions = unit.unit_data.actions
 		for i in range(action_buttons.size()):

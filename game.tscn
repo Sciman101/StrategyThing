@@ -20,14 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://jnrcd0lgtj22" path="res://textures/GC/Attack.png" id="13_ida55"]
 [ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://textures/Arrow Box/Defend.png" id="14_4k1fm"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rtee8"]
-atlas = ExtResource("10_si3xq")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pjpia"]
-atlas = ExtResource("10_si3xq")
-region = Rect2(0, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrkoi"]
 atlas = ExtResource("13_d1jhl")
 region = Rect2(0, 0, 16, 16)
@@ -35,6 +27,14 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_gkcyx"]
 atlas = ExtResource("13_d1jhl")
 region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtee8"]
+atlas = ExtResource("10_si3xq")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjpia"]
+atlas = ExtResource("10_si3xq")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="Animation" id="Animation_ylsqk"]
 length = 0.001
@@ -241,12 +241,26 @@ offset_bottom = 181.0
 texture = ExtResource("9_qp7p1")
 stretch_mode = 2
 
-[node name="HealthBar" type="TextureProgressBar" parent="UI/Controls"]
+[node name="UnitStats" type="VBoxContainer" parent="UI/Controls"]
 layout_mode = 0
-offset_left = 133.0
-offset_top = 59.0
-offset_right = 229.0
-offset_bottom = 75.0
+offset_left = 125.0
+offset_top = 56.0
+offset_right = 221.0
+offset_bottom = 152.0
+
+[node name="ApBar" type="Control" parent="UI/Controls/UnitStats"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("12_stvn7")
+filled = SubResource("AtlasTexture_rrkoi")
+empty = SubResource("AtlasTexture_gkcyx")
+value = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="UI/Controls/UnitStats"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 4
 value = 38.0
 nine_patch_stretch = true
 stretch_margin_left = 4
@@ -257,7 +271,7 @@ texture_under = SubResource("AtlasTexture_rtee8")
 texture_progress = SubResource("AtlasTexture_pjpia")
 script = ExtResource("11_u3mih")
 
-[node name="Label" type="Label" parent="UI/Controls/HealthBar"]
+[node name="Label" type="Label" parent="UI/Controls/UnitStats/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -269,16 +283,10 @@ text = "1/1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ApBar" type="Control" parent="UI/Controls"]
-anchors_preset = 0
-offset_left = 133.0
-offset_top = 80.0
-offset_right = 173.0
-offset_bottom = 120.0
-script = ExtResource("12_stvn7")
-filled = SubResource("AtlasTexture_rrkoi")
-empty = SubResource("AtlasTexture_gkcyx")
-value = 2
+[node name="ExtraInfo" type="Label" parent="UI/Controls/UnitStats"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_1ogro")
+text = "Speed: 2"
 
 [node name="MouseBlocker" type="Control" parent="UI/Controls"]
 layout_mode = 1

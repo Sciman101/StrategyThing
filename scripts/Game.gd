@@ -64,7 +64,7 @@ func _unhandled_input(event):
 				process_action.emit({highlighted_cell=cursor_pos})
 			if not selected_unit:
 				var hovered_unit = board.get_unit(cursor_pos)
-				controls.show_unit_info(hovered_unit, false)
+				controls.show_unit_info(hovered_unit, false, true)
 	
 	elif event is InputEventMouseButton:
 		if current_action == null:
