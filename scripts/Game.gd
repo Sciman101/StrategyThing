@@ -1,8 +1,5 @@
 extends Node2D
 
-const UnitGC = preload("res://UnitGC.tres")
-const UnitArrowBox = preload("res://UnitArrowBox.tres")
-
 const NUM_TEAMS := 2
 
 @onready var cursor = $Cursor
@@ -26,19 +23,23 @@ var is_busy = false
 signal process_action
 
 func _ready():
-	deselect_unit()
 	controls.action_selected.connect(_action_selected)
 	controls.mouse_entered.connect(cursor.hide)
 	
 	turn_counter.end_turn.connect(advance_turn)
 	turn_counter.display_turn_info(turn, team_idx)
 	
+	deselect_unit()
+	cursor.hide()
+	
 	# Assign bounding rect to the camera
 	var rect = board.get_used_rect()
 	camera.bounding_rect = Rect2(board.map_to_local(rect.position),Vector2.ZERO)
 	camera.bounding_rect = camera.bounding_rect.expand(board.map_to_local(rect.position + rect.size))
 	
-	# Create units
+	# Create units (TEMP CODE)
+	var UnitGC = UnitRegistry.find_by_id("garbage_chan")
+	var UnitArrowBox = UnitRegistry.find_by_id("arrow_box")
 	board.add_unit(UnitGC, Vector2i(3,1) , 0)
 	board.add_unit(UnitGC, Vector2i(3,4), 0)
 	board.add_unit(UnitGC, Vector2i(3,7), 0)
