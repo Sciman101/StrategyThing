@@ -1,5 +1,7 @@
 extends AnimatedSprite2D
 
+const OutlineShader = preload("res://outline.gdshader")
+
 const BASE_AP := 3
 const PULSE_DURATION := 0.4
 
@@ -24,17 +26,22 @@ func _ready():
 	highlight.modulate = Color.TRANSPARENT
 	animation_finished.connect(_animation_finished)
 	
+	material = ShaderMaterial.new()
+	material.shader = OutlineShader
+	material.set_shader_parameter(&'outline_col', Color.TRANSPARENT)
+	material.set_shader_parameter(&'outline_thickness', 2)
+	
 	if unit_data.callbacks:
 		callbacks.set_script(unit_data.callbacks)
 
 func select(team : int = -1):
 	if team == -1 or team == self.team:
-		modulate = Color.GREEN
+		material.set_shader_parameter(&'outline_col', Color.WHITE)
 	else:
-		modulate = Color.RED
+		material.set_shader_parameter(&'outline_col', Color.RED)
 
 func deselect():
-	modulate = Color.WHITE
+	material.set_shader_parameter(&'outline_col', Color.TRANSPARENT)
 
 func pulse_highlight():
 	highlight.modulate = Color.WHITE
