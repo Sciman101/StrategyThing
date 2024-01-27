@@ -34,6 +34,14 @@ func get_unit(pos : Vector2i):
 func get_team_units(team : int):
 	return units.values().filter(func(unit): return unit.team == team)
 
+func does_team_have_actions(team : int):
+	for unit in get_team_units(team):
+		var ap = unit.action_points
+		for action in unit.unit_data.actions:
+			if action.ap_cost <= ap:
+				return true
+	return false
+
 func move_unit(unit, new_pos : Vector2i, move_visual : bool = true):
 	
 	# Does something already exist there?

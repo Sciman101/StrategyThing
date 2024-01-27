@@ -153,3 +153,7 @@ func _action_selected(action : UnitAction):
 	current_action = null
 	turn_counter.set_interaction_enabled(true)
 	controls.show()
+	controls.show_unit_info(unit)
+	# Check if action is available
+	var should_end_turn = not board.does_team_have_actions(team_idx)
+	turn_counter.set_out_of_actions(should_end_turn)

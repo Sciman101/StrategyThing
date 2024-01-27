@@ -14,3 +14,9 @@ func display_turn_info(turn : int, team_idx : int):
 
 func set_interaction_enabled(enabled : bool):
 	button.disabled = not enabled
+
+func set_out_of_actions(enabled : bool = false):
+	if not enabled:
+		button.text = "End Turn"
+	else:
+		button.text = "Out of Actions"
