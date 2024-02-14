@@ -1,0 +1,56 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://n7apyjggbc0s"]
+
+[ext_resource type="Texture2D" uid="uid://doo23mxmyqlgr" path="res://units/Iekika/Iekika.png" id="1_ue70a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opcpw"]
+atlas = ExtResource("1_ue70a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b56f0"]
+atlas = ExtResource("1_ue70a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0m64"]
+atlas = ExtResource("1_ue70a")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3f6i"]
+atlas = ExtResource("1_ue70a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kfsx"]
+atlas = ExtResource("1_ue70a")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opcpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b56f0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0m64")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3f6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kfsx")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]

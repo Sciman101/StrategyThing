@@ -11,7 +11,7 @@ func execute(game, board, unit, control_signal, set_busy):
 	while not move_valid:
 		var result = await control_signal
 		if result.get('cancel'):
-			return
+			return false
 		
 		if result.has('highlighted_cell'):
 			var selection2 = selection.clone()
@@ -36,3 +36,4 @@ func execute(game, board, unit, control_signal, set_busy):
 					await unit.follow_path(path)
 					set_busy.call(false)
 					unit.play(&'default')
+					return true

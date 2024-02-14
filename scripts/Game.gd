@@ -38,13 +38,14 @@ func _ready():
 	camera.bounding_rect = camera.bounding_rect.expand(board.map_to_local(rect.position + rect.size))
 	
 	# Create units (TEMP CODE)
-	var UnitGC = UnitRegistry.find_by_id("garbage_chan")
-	var UnitArrowBox = UnitRegistry.find_by_id("arrow_box")
-	board.add_unit(UnitGC, Vector2i(3,1) , 0)
-	board.add_unit(UnitGC, Vector2i(3,4), 0)
+	var UnitGC = UnitRegistry.find_by_id("GC")
+	var UnitArrowBox = UnitRegistry.find_by_id("ArrowBox")
+	var UnitIekika = UnitRegistry.find_by_id("Iekika")
+	board.add_unit(UnitIekika, Vector2i(3,1) , 0)
+	board.add_unit(UnitIekika, Vector2i(3,4), 0)
 	board.add_unit(UnitGC, Vector2i(3,7), 0)
 	board.add_unit(UnitArrowBox, Vector2i(19,1), 1)
-	board.add_unit(UnitArrowBox, Vector2i(19,4), 1)
+	board.add_unit(UnitGC, Vector2i(19,4), 1)
 	board.add_unit(UnitArrowBox, Vector2i(19,7), 1)
 	
 	start_game()
@@ -146,10 +147,10 @@ func _action_selected(action : UnitAction):
 	current_action = action
 	# Begin action execution
 	var unit = selected_unit
-	await action.execute(self, board, unit, process_action, set_busy)
+	var success = await action.execute(self, board, unit, process_action, set_busy)
 	# Once the action is complete
-	# Take AP from unit
-	unit.action_points -= action.ap_cost
+	if success:
+		unit.action_points -= action.ap_cost
 	current_action = null
 	turn_counter.set_interaction_enabled(true)
 	controls.show()

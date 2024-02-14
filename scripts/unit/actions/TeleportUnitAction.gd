@@ -8,7 +8,7 @@ func execute(game, board, unit, control_signal, set_busy):
 	while not move_valid:
 		var result = await control_signal
 		if result.get('cancel'):
-			return
+			return false
 		
 		target_pos = result.get('selected_cell')
 		if target_pos:
@@ -21,3 +21,4 @@ func execute(game, board, unit, control_signal, set_busy):
 				board.move_unit(unit, target_pos)
 				await game.get_tree().create_tween().tween_property(unit, 'scale', Vector2.ONE, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC).finished
 				set_busy.call(false)
+				return true

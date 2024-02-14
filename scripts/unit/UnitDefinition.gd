@@ -2,7 +2,6 @@ class_name UnitDefinition
 extends Resource
 
 @export_category("Unit Info")
-@export var identifier : String
 @export var name : String
 
 @export var portrait : Texture

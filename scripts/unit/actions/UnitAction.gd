@@ -13,5 +13,6 @@ extends Resource
 # unit is the unit this is targeting
 # control_signal is passed by the game to allow messages to pass through
 # set_busy can be called by the action to tell the game "don't let the user interrupt this!"
+# Return true if the action is a success, false otherwise. Used to determine AP cost deduction
 func execute(game, board, unit, control_signal, set_busy): # This method is awaited
 	pass

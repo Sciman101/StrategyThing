@@ -1,22 +1,22 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=8 format=3 uid="uid://dxm4q1fejmhfn"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=9 format=3 uid="uid://dxm4q1fejmhfn"]
 
 [ext_resource type="Resource" uid="uid://r8oh87vu3ff6" path="res://actions/action_move.tres" id="1_6f7ok"]
-[ext_resource type="Resource" uid="uid://w5ms88vui174" path="res://actions/action_kick.tres" id="2_up0nu"]
-[ext_resource type="Texture2D" uid="uid://jnrcd0lgtj22" path="res://units/GC/Attack.png" id="3_urycy"]
-[ext_resource type="SpriteFrames" uid="uid://br75bjvhng1dj" path="res://units/GC/garbage_chan_animations.tres" id="4_oop4d"]
-[ext_resource type="Texture2D" uid="uid://segtmyxmsuo6" path="res://units/GC/Logo.png" id="5_4s6xq"]
-[ext_resource type="Texture2D" uid="uid://8dtvxxdq6jum" path="res://units/GC/Portait.png" id="6_wnqhv"]
+[ext_resource type="Resource" uid="uid://daebn3ubkq51m" path="res://actions/action_spear_jab.tres" id="2_ffm1j"]
+[ext_resource type="Texture2D" uid="uid://v5f64v275rgn" path="res://units/Iekika/Attack.png" id="3_ooecm"]
+[ext_resource type="SpriteFrames" uid="uid://n7apyjggbc0s" path="res://units/Iekika/iekika_animations.tres" id="4_43cm3"]
+[ext_resource type="Texture2D" uid="uid://c0y1yoxxesieh" path="res://units/Iekika/Logo.png" id="5_0gtgt"]
+[ext_resource type="Texture2D" uid="uid://c1of8evs23jx7" path="res://units/Iekika/Defend.png" id="5_ii15m"]
 [ext_resource type="Script" path="res://scripts/unit/UnitDefinition.gd" id="7_5j272"]
+[ext_resource type="Texture2D" uid="uid://ebf57dxs6dtt" path="res://units/Iekika/Portrait.png" id="7_dq86l"]
 
 [resource]
 script = ExtResource("7_5j272")
-identifier = "garbage_chan"
-name = "Garbage-Chan"
-portrait = ExtResource("6_wnqhv")
-logo = ExtResource("5_4s6xq")
-board_animations = ExtResource("4_oop4d")
-attack_sprite = ExtResource("3_urycy")
-defend_sprite = ExtResource("3_urycy")
-max_health = 5
-base_speed = 3
-actions = Array[Resource("res://scripts/unit/actions/UnitAction.gd")]([ExtResource("1_6f7ok"), ExtResource("2_up0nu")])
+name = "Iekika"
+portrait = ExtResource("7_dq86l")
+logo = ExtResource("5_0gtgt")
+board_animations = ExtResource("4_43cm3")
+attack_sprite = ExtResource("3_ooecm")
+defend_sprite = ExtResource("5_ii15m")
+max_health = 6
+base_speed = 4
+actions = Array[Resource("res://scripts/unit/actions/UnitAction.gd")]([ExtResource("1_6f7ok"), ExtResource("2_ffm1j")])

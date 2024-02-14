@@ -10,7 +10,7 @@ const UnitScene = preload("res://unit.tscn")
 var units = {}
 var astar : AStar2D
 
-func _ready():	
+func _ready():
 	_build_pathfinding_graph()
 
 #== Unit management ==#
@@ -124,10 +124,10 @@ func create_selection():
 func highlight_clear():
 	clear_layer(OVERLAY_LAYER)
 
-func highlight_selection(selection):
+func highlight_selection(selection, weak):
 	for cell in selection.cells.keys():
 		if selection.cells[cell]:
-			set_cell(OVERLAY_LAYER, cell, OVERLAY_TILE_INDEX, Vector2.ZERO)
+			set_cell(OVERLAY_LAYER, cell, OVERLAY_TILE_INDEX, Vector2.ZERO, 1 if weak else 0)
 
 #== ASTAR SETUP & UTILITIES ==#
 
@@ -188,8 +188,8 @@ class Selection:
 	var cells = {}
 	var board
 	
-	func _init(board):
-		self.board = board
+	func _init(_board):
+		self.board = _board
 	
 	func has(position : Vector2i):
 		return cells.get(position, false)
@@ -303,6 +303,6 @@ class Selection:
 		select_cell(path[-1], selected)
 		return self
 	
-	func highlight_board():
-		board.highlight_selection(self)
+	func highlight_board(weak = false):
+		board.highlight_selection(self, weak)
 		return self
