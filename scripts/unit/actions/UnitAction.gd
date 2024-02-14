@@ -5,6 +5,9 @@ extends Resource
 @export_multiline var description : String
 @export_range(0,4) var ap_cost : int
 
+@export var icon : Texture
+@export var icon_disabled : Texture
+
 # game is the current game manager
 # board is the current gameboard
 # unit is the unit this is targeting
