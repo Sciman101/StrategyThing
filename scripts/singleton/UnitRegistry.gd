@@ -35,13 +35,18 @@ func _load_units():
 		var path = unit_dir.get_next()
 		while path != "":
 			#Cycle over the units directory
-			if not unit_dir.current_is_dir():
-				var unit = load(UNIT_PATH + "/" + path)
-				if units.has(unit.identifier):
-					print("Warning! Attempting to override unit %s! If this is intentional, consider changing the id" % unit.identifier)
+			if unit_dir.current_is_dir():
+				# Look for definition
+				var unit = load(UNIT_PATH + "/" + path + "/Unit" + path + ".tres")
+				if unit:
+					print(unit)
+					if units.has(unit.identifier):
+						print("Warning! Attempting to override unit %s! If this is intentional, consider changing the id" % unit.identifier)
+					else:
+						units[unit.identifier] = unit
+						print("Loaded %s (id %s)" % [unit.name, unit.identifier])
 				else:
-					units[unit.identifier] = unit
-					print("Loaded %s (id %s)" % [unit.name, unit.identifier])
+					print("Error loading unit " + path + "! Make sure the definition file matches the folder name")
 			path = unit_dir.get_next()
 			
 	else:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh32c3uup2m3g"
-path="res://.godot/imported/Arrow Box.png-2dfaf0c38e63253a5f0ff55d95dc85a2.ctex"
+uid="uid://bj5r3ld1822l8"
+path="res://.godot/imported/Garbage-Chan.png-8e9cf07bc6add41af9b2f5088de1f515.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Arrow Box/Arrow Box.png"
-dest_files=["res://.godot/imported/Arrow Box.png-2dfaf0c38e63253a5f0ff55d95dc85a2.ctex"]
+source_file="res://units/GC/Garbage-Chan.png"
+dest_files=["res://.godot/imported/Garbage-Chan.png-8e9cf07bc6add41af9b2f5088de1f515.ctex"]
 
 [params]
 

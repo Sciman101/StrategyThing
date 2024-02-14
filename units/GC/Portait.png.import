@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8dtvxxdq6jum"
-path="res://.godot/imported/Portait.png-87fc2be0b86b2663b9f23311cfb78ed3.ctex"
+path="res://.godot/imported/Portait.png-8cdc4ba6571bc597e1ba25f529352448.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/GC/Portait.png"
-dest_files=["res://.godot/imported/Portait.png-87fc2be0b86b2663b9f23311cfb78ed3.ctex"]
+source_file="res://units/GC/Portait.png"
+dest_files=["res://.godot/imported/Portait.png-8cdc4ba6571bc597e1ba25f529352448.ctex"]
 
 [params]
 

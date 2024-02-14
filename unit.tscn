@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://41a5tw6hdlt4"]
 
-[ext_resource type="SpriteFrames" uid="uid://bt1q5jic0m48f" path="res://spriteframes/arrow_box_animations.tres" id="1_yvrg6"]
+[ext_resource type="SpriteFrames" uid="uid://bt1q5jic0m48f" path="res://units/ArrowBox/arrow_box_animations.tres" id="1_yvrg6"]
 [ext_resource type="Script" path="res://scripts/unit/Unit.gd" id="2_sl1rc"]
-[ext_resource type="Resource" uid="uid://btkogb0xitmpo" path="res://units/UnitArrowBox.tres" id="3_rxmq4"]
+[ext_resource type="Resource" uid="uid://btkogb0xitmpo" path="res://units/ArrowBox/UnitArrowBox.tres" id="3_rxmq4"]
 [ext_resource type="Texture2D" uid="uid://c2t1is4xs3k0" path="res://textures/cursor.png" id="4_mumkq"]
 
 [node name="Unit" type="AnimatedSprite2D"]

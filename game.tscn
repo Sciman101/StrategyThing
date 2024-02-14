@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dl3ho2nc5r4oc"]
+[gd_scene load_steps=27 format=3 uid="uid://hdguqvmcsm86"]
 
 [ext_resource type="Script" path="res://scripts/Game.gd" id="1_npc24"]
 [ext_resource type="TileSet" uid="uid://t8uktdrwmjx5" path="res://board_tiles.tres" id="2_emj0f"]
@@ -7,18 +7,18 @@
 [ext_resource type="Texture2D" uid="uid://c2t1is4xs3k0" path="res://textures/cursor.png" id="4_15725"]
 [ext_resource type="Script" path="res://scripts/ui/UnitControls.gd" id="6_w47en"]
 [ext_resource type="Texture2D" uid="uid://bcqs65hl6lckq" path="res://textures/ui/UI_Bar.png" id="7_yvh1b"]
+[ext_resource type="Texture2D" uid="uid://8dtvxxdq6jum" path="res://units/GC/Portait.png" id="8_1omch"]
 [ext_resource type="Texture2D" uid="uid://bp7ik2wnfshrr" path="res://textures/SplashBar.png" id="8_mt62a"]
-[ext_resource type="Texture2D" uid="uid://8dtvxxdq6jum" path="res://textures/GC/Portait.png" id="8_smo2s"]
 [ext_resource type="Script" path="res://scripts/FightSplash.gd" id="8_srlqb"]
-[ext_resource type="Texture2D" uid="uid://segtmyxmsuo6" path="res://textures/GC/Logo.png" id="9_qp7p1"]
+[ext_resource type="Texture2D" uid="uid://segtmyxmsuo6" path="res://units/GC/Logo.png" id="9_sssv0"]
 [ext_resource type="Texture2D" uid="uid://d3q83ayq74pw7" path="res://textures/ui/Meters.png" id="10_si3xq"]
 [ext_resource type="Script" path="res://scripts/ui/HealthBar.gd" id="11_u3mih"]
 [ext_resource type="FontFile" uid="uid://33pjnbckrfqv" path="res://EquipmentPro.ttf" id="12_1ogro"]
 [ext_resource type="Script" path="res://scripts/ui/ApBar.gd" id="12_stvn7"]
 [ext_resource type="Texture2D" uid="uid://cmw45f3es4psh" path="res://textures/ui/Ap Markers.png" id="13_d1jhl"]
 [ext_resource type="Script" path="res://scripts/ui/TurnCounter.gd" id="13_dp42v"]
-[ext_resource type="Texture2D" uid="uid://jnrcd0lgtj22" path="res://textures/GC/Attack.png" id="13_ida55"]
-[ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://textures/Arrow Box/Defend.png" id="14_4k1fm"]
+[ext_resource type="Texture2D" uid="uid://jnrcd0lgtj22" path="res://units/GC/Attack.png" id="18_k40pj"]
+[ext_resource type="Texture2D" uid="uid://cfnp2x2l2743r" path="res://units/ArrowBox/Defend.png" id="19_rcsu0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrkoi"]
 atlas = ExtResource("13_d1jhl")
@@ -230,7 +230,7 @@ layout_mode = 0
 offset_top = 47.0
 offset_right = 128.0
 offset_bottom = 175.0
-texture = ExtResource("8_smo2s")
+texture = ExtResource("8_1omch")
 
 [node name="Logo" type="TextureRect" parent="UI/Controls/Background"]
 layout_mode = 0
@@ -238,7 +238,7 @@ offset_left = 133.0
 offset_top = 53.0
 offset_right = 261.0
 offset_bottom = 181.0
-texture = ExtResource("9_qp7p1")
+texture = ExtResource("9_sssv0")
 stretch_mode = 2
 
 [node name="UnitStats" type="VBoxContainer" parent="UI/Controls"]
@@ -382,11 +382,11 @@ texture = ExtResource("8_mt62a")
 
 [node name="Attacker" type="Sprite2D" parent="UI/FightSplash"]
 position = Vector2(170, 180)
-texture = ExtResource("13_ida55")
+texture = ExtResource("18_k40pj")
 
 [node name="Defender" type="Sprite2D" parent="UI/FightSplash"]
 position = Vector2(470, 180)
-texture = ExtResource("14_4k1fm")
+texture = ExtResource("19_rcsu0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/FightSplash"]
 libraries = {

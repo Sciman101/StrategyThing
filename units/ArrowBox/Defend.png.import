@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://segtmyxmsuo6"
-path="res://.godot/imported/Logo.png-c2d2d2c74be080191ec9d699122029f7.ctex"
+uid="uid://cfnp2x2l2743r"
+path="res://.godot/imported/Defend.png-b9a6f17a0c1294fcb8a46f46e2dcca5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/GC/Logo.png"
-dest_files=["res://.godot/imported/Logo.png-c2d2d2c74be080191ec9d699122029f7.ctex"]
+source_file="res://units/ArrowBox/Defend.png"
+dest_files=["res://.godot/imported/Defend.png-b9a6f17a0c1294fcb8a46f46e2dcca5e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7uoud7xjphfx"
-path="res://.godot/imported/Portrait.png-7e04c711db9bb571bb7f45afa4080f46.ctex"
+uid="uid://jnrcd0lgtj22"
+path="res://.godot/imported/Attack.png-e47f6333adb7437039c63336a8214576.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Arrow Box/Portrait.png"
-dest_files=["res://.godot/imported/Portrait.png-7e04c711db9bb571bb7f45afa4080f46.ctex"]
+source_file="res://units/GC/Attack.png"
+dest_files=["res://.godot/imported/Attack.png-e47f6333adb7437039c63336a8214576.ctex"]
 
 [params]
 
